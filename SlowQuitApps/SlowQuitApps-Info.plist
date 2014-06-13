@@ -28,6 +28,8 @@
 	<string>Copyright © 2014 Douglas Teoh. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>LSBackgroundOnly</key>
+	<true/>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

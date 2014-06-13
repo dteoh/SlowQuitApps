@@ -20,7 +20,6 @@
     return self;
 }
 
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     EventHotKeyRef hotKeyRef;
