@@ -1,14 +1,25 @@
 @import Carbon;
 #import "SQAAppDelegate.h"
 #import "SQACmdQStream.h"
+#import "SQAOverlayPresenter.h"
 
 @interface SQAAppDelegate() {
 @private
     SQACmdQStream *stream;
+    SQAOverlayPresenter *presenter;
 }
 @end
 
 @implementation SQAAppDelegate
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        presenter = [[SQAOverlayPresenter alloc] init];
+    }
+    return self;
+}
+
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -28,14 +39,17 @@
 
 - (void)cmdQPressed
 {
-    NSLog(@"Cmd-Q pressed");
+    [presenter cmdQPressed];
+    __weak typeof(presenter) weakPresenter = presenter;
+
     stream = [[SQACmdQStream alloc] init];
     __weak typeof(stream) weakStream = stream;
+
     stream.observer = ^(BOOL pressed) {
         if (pressed) {
-            NSLog(@"Still pressed");
+            [weakPresenter cmdQHeldDown];
         } else {
-            NSLog(@"Not pressed");
+            [weakPresenter cmdQReleased];
             [weakStream close];
         }
     };

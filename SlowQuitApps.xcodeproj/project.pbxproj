@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		060A2EA0194AA79500B51D29 /* SQACmdQStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 060A2E9F194AA79500B51D29 /* SQACmdQStream.m */; };
+		060A2EA3194AB15A00B51D29 /* SQAOverlayPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 060A2EA2194AB15A00B51D29 /* SQAOverlayPresenter.m */; };
 		06950469194A81E9007AB2D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950468194A81E9007AB2D5 /* Cocoa.framework */; };
 		06950473194A81E9007AB2D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 06950471194A81E9007AB2D5 /* InfoPlist.strings */; };
 		06950475194A81E9007AB2D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06950474194A81E9007AB2D5 /* main.m */; };
@@ -34,6 +35,8 @@
 /* Begin PBXFileReference section */
 		060A2E9E194AA79500B51D29 /* SQACmdQStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQACmdQStream.h; sourceTree = "<group>"; };
 		060A2E9F194AA79500B51D29 /* SQACmdQStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQACmdQStream.m; sourceTree = "<group>"; };
+		060A2EA1194AB15A00B51D29 /* SQAOverlayPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAOverlayPresenter.h; sourceTree = "<group>"; };
+		060A2EA2194AB15A00B51D29 /* SQAOverlayPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAOverlayPresenter.m; sourceTree = "<group>"; };
 		06950465194A81E9007AB2D5 /* SlowQuitApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06950468194A81E9007AB2D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0695046B194A81E9007AB2D5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -124,6 +127,8 @@
 				0695047B194A81E9007AB2D5 /* SQAAppDelegate.m */,
 				060A2E9E194AA79500B51D29 /* SQACmdQStream.h */,
 				060A2E9F194AA79500B51D29 /* SQACmdQStream.m */,
+				060A2EA1194AB15A00B51D29 /* SQAOverlayPresenter.h */,
+				060A2EA2194AB15A00B51D29 /* SQAOverlayPresenter.m */,
 				0695046F194A81E9007AB2D5 /* Supporting Files */,
 			);
 			path = SlowQuitApps;
@@ -261,6 +266,7 @@
 				060A2EA0194AA79500B51D29 /* SQACmdQStream.m in Sources */,
 				0695047C194A81E9007AB2D5 /* SQAAppDelegate.m in Sources */,
 				06950475194A81E9007AB2D5 /* main.m in Sources */,
+				060A2EA3194AB15A00B51D29 /* SQAOverlayPresenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
