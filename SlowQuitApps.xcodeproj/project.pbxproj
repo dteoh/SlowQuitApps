@@ -1,0 +1,482 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06950469194A81E9007AB2D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950468194A81E9007AB2D5 /* Cocoa.framework */; };
+		06950473194A81E9007AB2D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 06950471194A81E9007AB2D5 /* InfoPlist.strings */; };
+		06950475194A81E9007AB2D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06950474194A81E9007AB2D5 /* main.m */; };
+		06950479194A81E9007AB2D5 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 06950477194A81E9007AB2D5 /* Credits.rtf */; };
+		0695047C194A81E9007AB2D5 /* SQAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0695047B194A81E9007AB2D5 /* SQAAppDelegate.m */; };
+		0695047F194A81E9007AB2D5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0695047D194A81E9007AB2D5 /* MainMenu.xib */; };
+		06950481194A81E9007AB2D5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06950480194A81E9007AB2D5 /* Images.xcassets */; };
+		06950488194A81E9007AB2D5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950487194A81E9007AB2D5 /* XCTest.framework */; };
+		06950489194A81E9007AB2D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950468194A81E9007AB2D5 /* Cocoa.framework */; };
+		06950491194A81E9007AB2D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0695048F194A81E9007AB2D5 /* InfoPlist.strings */; };
+		06950493194A81E9007AB2D5 /* SlowQuitAppsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 06950492194A81E9007AB2D5 /* SlowQuitAppsTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0695048A194A81E9007AB2D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0695045D194A81E9007AB2D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 06950464194A81E9007AB2D5;
+			remoteInfo = SlowQuitApps;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		06950465194A81E9007AB2D5 /* SlowQuitApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		06950468194A81E9007AB2D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		0695046B194A81E9007AB2D5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		0695046C194A81E9007AB2D5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0695046D194A81E9007AB2D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		06950470194A81E9007AB2D5 /* SlowQuitApps-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SlowQuitApps-Info.plist"; sourceTree = "<group>"; };
+		06950472194A81E9007AB2D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		06950474194A81E9007AB2D5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		06950476194A81E9007AB2D5 /* SlowQuitApps-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SlowQuitApps-Prefix.pch"; sourceTree = "<group>"; };
+		06950478194A81E9007AB2D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		0695047A194A81E9007AB2D5 /* SQAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQAAppDelegate.h; sourceTree = "<group>"; };
+		0695047B194A81E9007AB2D5 /* SQAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQAAppDelegate.m; sourceTree = "<group>"; };
+		0695047E194A81E9007AB2D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		06950480194A81E9007AB2D5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		06950486194A81E9007AB2D5 /* SlowQuitAppsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlowQuitAppsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		06950487194A81E9007AB2D5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		0695048E194A81E9007AB2D5 /* SlowQuitAppsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SlowQuitAppsTests-Info.plist"; sourceTree = "<group>"; };
+		06950490194A81E9007AB2D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		06950492194A81E9007AB2D5 /* SlowQuitAppsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlowQuitAppsTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		06950462194A81E9007AB2D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06950469194A81E9007AB2D5 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06950483194A81E9007AB2D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06950489194A81E9007AB2D5 /* Cocoa.framework in Frameworks */,
+				06950488194A81E9007AB2D5 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0695045C194A81E9007AB2D5 = {
+			isa = PBXGroup;
+			children = (
+				0695046E194A81E9007AB2D5 /* SlowQuitApps */,
+				0695048C194A81E9007AB2D5 /* SlowQuitAppsTests */,
+				06950467194A81E9007AB2D5 /* Frameworks */,
+				06950466194A81E9007AB2D5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		06950466194A81E9007AB2D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06950465194A81E9007AB2D5 /* SlowQuitApps.app */,
+				06950486194A81E9007AB2D5 /* SlowQuitAppsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		06950467194A81E9007AB2D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				06950468194A81E9007AB2D5 /* Cocoa.framework */,
+				06950487194A81E9007AB2D5 /* XCTest.framework */,
+				0695046A194A81E9007AB2D5 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0695046A194A81E9007AB2D5 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0695046B194A81E9007AB2D5 /* AppKit.framework */,
+				0695046C194A81E9007AB2D5 /* CoreData.framework */,
+				0695046D194A81E9007AB2D5 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		0695046E194A81E9007AB2D5 /* SlowQuitApps */ = {
+			isa = PBXGroup;
+			children = (
+				0695047A194A81E9007AB2D5 /* SQAAppDelegate.h */,
+				0695047B194A81E9007AB2D5 /* SQAAppDelegate.m */,
+				0695047D194A81E9007AB2D5 /* MainMenu.xib */,
+				06950480194A81E9007AB2D5 /* Images.xcassets */,
+				0695046F194A81E9007AB2D5 /* Supporting Files */,
+			);
+			path = SlowQuitApps;
+			sourceTree = "<group>";
+		};
+		0695046F194A81E9007AB2D5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				06950470194A81E9007AB2D5 /* SlowQuitApps-Info.plist */,
+				06950471194A81E9007AB2D5 /* InfoPlist.strings */,
+				06950474194A81E9007AB2D5 /* main.m */,
+				06950476194A81E9007AB2D5 /* SlowQuitApps-Prefix.pch */,
+				06950477194A81E9007AB2D5 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0695048C194A81E9007AB2D5 /* SlowQuitAppsTests */ = {
+			isa = PBXGroup;
+			children = (
+				06950492194A81E9007AB2D5 /* SlowQuitAppsTests.m */,
+				0695048D194A81E9007AB2D5 /* Supporting Files */,
+			);
+			path = SlowQuitAppsTests;
+			sourceTree = "<group>";
+		};
+		0695048D194A81E9007AB2D5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0695048E194A81E9007AB2D5 /* SlowQuitAppsTests-Info.plist */,
+				0695048F194A81E9007AB2D5 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		06950464194A81E9007AB2D5 /* SlowQuitApps */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06950496194A81E9007AB2D5 /* Build configuration list for PBXNativeTarget "SlowQuitApps" */;
+			buildPhases = (
+				06950461194A81E9007AB2D5 /* Sources */,
+				06950462194A81E9007AB2D5 /* Frameworks */,
+				06950463194A81E9007AB2D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SlowQuitApps;
+			productName = SlowQuitApps;
+			productReference = 06950465194A81E9007AB2D5 /* SlowQuitApps.app */;
+			productType = "com.apple.product-type.application";
+		};
+		06950485194A81E9007AB2D5 /* SlowQuitAppsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06950499194A81E9007AB2D5 /* Build configuration list for PBXNativeTarget "SlowQuitAppsTests" */;
+			buildPhases = (
+				06950482194A81E9007AB2D5 /* Sources */,
+				06950483194A81E9007AB2D5 /* Frameworks */,
+				06950484194A81E9007AB2D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0695048B194A81E9007AB2D5 /* PBXTargetDependency */,
+			);
+			name = SlowQuitAppsTests;
+			productName = SlowQuitAppsTests;
+			productReference = 06950486194A81E9007AB2D5 /* SlowQuitAppsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0695045D194A81E9007AB2D5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SQA;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Douglas Teoh";
+				TargetAttributes = {
+					06950485194A81E9007AB2D5 = {
+						TestTargetID = 06950464194A81E9007AB2D5;
+					};
+				};
+			};
+			buildConfigurationList = 06950460194A81E9007AB2D5 /* Build configuration list for PBXProject "SlowQuitApps" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0695045C194A81E9007AB2D5;
+			productRefGroup = 06950466194A81E9007AB2D5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				06950464194A81E9007AB2D5 /* SlowQuitApps */,
+				06950485194A81E9007AB2D5 /* SlowQuitAppsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		06950463194A81E9007AB2D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06950473194A81E9007AB2D5 /* InfoPlist.strings in Resources */,
+				06950481194A81E9007AB2D5 /* Images.xcassets in Resources */,
+				06950479194A81E9007AB2D5 /* Credits.rtf in Resources */,
+				0695047F194A81E9007AB2D5 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06950484194A81E9007AB2D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06950491194A81E9007AB2D5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		06950461194A81E9007AB2D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0695047C194A81E9007AB2D5 /* SQAAppDelegate.m in Sources */,
+				06950475194A81E9007AB2D5 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06950482194A81E9007AB2D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06950493194A81E9007AB2D5 /* SlowQuitAppsTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0695048B194A81E9007AB2D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 06950464194A81E9007AB2D5 /* SlowQuitApps */;
+			targetProxy = 0695048A194A81E9007AB2D5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		06950471194A81E9007AB2D5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				06950472194A81E9007AB2D5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		06950477194A81E9007AB2D5 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				06950478194A81E9007AB2D5 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		0695047D194A81E9007AB2D5 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0695047E194A81E9007AB2D5 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		0695048F194A81E9007AB2D5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				06950490194A81E9007AB2D5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		06950494194A81E9007AB2D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		06950495194A81E9007AB2D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		06950497194A81E9007AB2D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SlowQuitApps/SlowQuitApps-Prefix.pch";
+				INFOPLIST_FILE = "SlowQuitApps/SlowQuitApps-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		06950498194A81E9007AB2D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SlowQuitApps/SlowQuitApps-Prefix.pch";
+				INFOPLIST_FILE = "SlowQuitApps/SlowQuitApps-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0695049A194A81E9007AB2D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SlowQuitApps.app/Contents/MacOS/SlowQuitApps";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SlowQuitApps/SlowQuitApps-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SlowQuitAppsTests/SlowQuitAppsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		0695049B194A81E9007AB2D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SlowQuitApps.app/Contents/MacOS/SlowQuitApps";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SlowQuitApps/SlowQuitApps-Prefix.pch";
+				INFOPLIST_FILE = "SlowQuitAppsTests/SlowQuitAppsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		06950460194A81E9007AB2D5 /* Build configuration list for PBXProject "SlowQuitApps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06950494194A81E9007AB2D5 /* Debug */,
+				06950495194A81E9007AB2D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		06950496194A81E9007AB2D5 /* Build configuration list for PBXNativeTarget "SlowQuitApps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06950497194A81E9007AB2D5 /* Debug */,
+				06950498194A81E9007AB2D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		06950499194A81E9007AB2D5 /* Build configuration list for PBXNativeTarget "SlowQuitAppsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0695049A194A81E9007AB2D5 /* Debug */,
+				0695049B194A81E9007AB2D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0695045D194A81E9007AB2D5 /* Project object */;
+}
