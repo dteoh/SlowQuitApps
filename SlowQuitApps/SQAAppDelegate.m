@@ -2,11 +2,14 @@
 #import "SQAAppDelegate.h"
 #import "SQACmdQStream.h"
 #import "SQAOverlayPresenter.h"
+#import "SQAOverlayWindowController.h"
+
 
 @interface SQAAppDelegate() {
 @private
     SQACmdQStream *stream;
     SQAOverlayPresenter *presenter;
+    SQAOverlayWindowController *overlayWindow;
 }
 @end
 
@@ -16,12 +19,15 @@
     self = [super init];
     if (self) {
         presenter = [[SQAOverlayPresenter alloc] init];
+        overlayWindow = [[SQAOverlayWindowController alloc] init];
     }
     return self;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+//    [overlayWindow showWindow:nil];
+
     EventHotKeyRef hotKeyRef;
     EventHotKeyID hotKeyID;
     EventTypeSpec eventType;
