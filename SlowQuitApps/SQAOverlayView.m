@@ -4,6 +4,7 @@
 @interface SQAOverlayView() {
 @private
     CAShapeLayer *outerCircle;
+    CAShapeLayer *innerCircle;
 }
 @end
 
@@ -19,12 +20,33 @@
         outerCircle = makeOuterCircle(frameRect);
         [layer addSublayer:outerCircle];
 
+        innerCircle = makeInnerCirle(smallerCenteredRect(frameRect, 21));
+        innerCircle.strokeEnd = 0.95;
+        [layer addSublayer:innerCircle];
+
         [self redraw];
     }
     return self;
 }
 
-CAShapeLayer * makeOuterCircle(CGRect frame) {
+- (void)redraw {
+    [self.layer needsDisplay];
+}
+
+#pragma - Helpers
+
+CGFloat deg2Rad(const CGFloat deg) {
+    return deg * M_PI / 180;
+}
+
+CGRect smallerCenteredRect(const CGRect rect, const CGFloat pixels) {
+    return CGRectMake(CGRectGetMinX(rect) + pixels,
+                      CGRectGetMinY(rect) + pixels,
+                      CGRectGetWidth(rect) - (pixels * 2),
+                      CGRectGetHeight(rect) - (pixels * 2));
+}
+
+CAShapeLayer * makeOuterCircle(const CGRect frame) {
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.bounds = frame;
     layer.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
@@ -51,8 +73,36 @@ CAShapeLayer * makeOuterCircle(CGRect frame) {
     return layer;
 }
 
-- (void)redraw {
-    [self.layer needsDisplay];
+CAShapeLayer * makeInnerCirle(const CGRect frame) {
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    layer.bounds = frame;
+    layer.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+    layer.path = CGPathCreateWithEllipseInRect(frame, NULL);
+
+    // We will be animating the stroke property
+    layer.fillColor = NSColor.clearColor.CGColor;
+    layer.strokeColor = NSColor.blackColor.CGColor;
+    layer.lineWidth = CGRectGetWidth(frame);
+
+    // These transformations make the stroke start at 12 o'clock and move
+    // clockwise.
+    CATransform3D flip = CATransform3DIdentity;
+    flip.m22 = -1;
+    CGAffineTransform rotate2d = CGAffineTransformMakeRotation(deg2Rad(90));
+    CATransform3D rotate = CATransform3DMakeAffineTransform(rotate2d);
+    layer.transform = CATransform3DConcat(flip, rotate);
+
+    // If we don't use a mask, we just see a rectangle shape because of the
+    // layer stroke
+    CAShapeLayer *mask = [CAShapeLayer layer];
+    mask.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+    mask.bounds = frame;
+    mask.path = CGPathCreateWithEllipseInRect(frame, NULL);
+    mask.fillColor = [[NSColor colorWithDeviceWhite:1 alpha:0.7] CGColor];
+
+    layer.mask = mask;
+
+    return layer;
 }
 
 @end

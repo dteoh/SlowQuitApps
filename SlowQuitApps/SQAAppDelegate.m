@@ -26,7 +26,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-//    [overlayWindow showWindow:nil];
+    [overlayWindow showWindow:nil];
 
     EventHotKeyRef hotKeyRef;
     EventHotKeyID hotKeyID;
