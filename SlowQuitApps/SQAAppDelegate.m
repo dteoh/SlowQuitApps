@@ -1,14 +1,15 @@
 @import Carbon;
 #import "SQAAppDelegate.h"
 #import "SQACmdQStream.h"
-#import "SQAOverlayPresenter.h"
 #import "SQAOverlayWindowController.h"
+#import "SQATerminator.h"
 
 
 @interface SQAAppDelegate() {
 @private
     SQACmdQStream *stream;
-    SQAOverlayPresenter *presenter;
+    SQATerminator *terminator;
+    id<SQAOverlayViewInterface> overlayView;
 }
 @end
 
@@ -17,8 +18,8 @@
 - (id)init {
     self = [super init];
     if (self) {
-        presenter = [[SQAOverlayPresenter alloc] init];
-        presenter.overlayView = [[SQAOverlayWindowController alloc] init];
+        overlayView = [[SQAOverlayWindowController alloc] init];
+        terminator = [[SQATerminator alloc] init];
     }
     return self;
 }
@@ -41,22 +42,33 @@
 
 - (void)cmdQPressed
 {
-    [presenter cmdQPressed];
-    __weak typeof(presenter) weakPresenter = presenter;
+    [terminator newMission];
+    __weak typeof(terminator) weakTerminator = terminator;
+
+    [overlayView showOverlay];
+    __weak typeof (overlayView) weakOverlay = overlayView;
+
+    terminator.missionComplete = ^{
+        [weakOverlay hideOverlay];
+        [weakOverlay resetOverlay];
+    };
 
     stream = [[SQACmdQStream alloc] init];
     __weak typeof(stream) weakStream = stream;
 
     stream.observer = ^(BOOL pressed) {
         if (pressed) {
-            [weakPresenter cmdQHeldDown];
+            [weakTerminator updateMission];
+            [weakOverlay setProgress:weakTerminator.progress];
         } else {
-            [weakPresenter cmdQReleased];
+            [weakOverlay hideOverlay];
+            [weakOverlay resetOverlay];
             [weakStream close];
         }
     };
     [stream open];
 }
+
 
 OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *userData) {
     SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
