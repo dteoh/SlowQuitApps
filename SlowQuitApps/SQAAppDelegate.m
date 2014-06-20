@@ -46,6 +46,7 @@
     __weak typeof (overlayView) weakOverlay = overlayView;
 
     [terminator newMission:^{
+        [weakOverlay setProgress:1];
         [weakOverlay hideOverlay];
         [weakOverlay resetOverlay];
     }];
