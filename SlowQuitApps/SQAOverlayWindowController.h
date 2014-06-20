@@ -1,5 +1,7 @@
 @import Cocoa;
 
-@interface SQAOverlayWindowController : NSWindowController
+#import "SQAOverlayViewInterface.h"
+
+@interface SQAOverlayWindowController : NSWindowController <SQAOverlayViewInterface>
 
 @end

@@ -9,7 +9,6 @@
 @private
     SQACmdQStream *stream;
     SQAOverlayPresenter *presenter;
-    SQAOverlayWindowController *overlayWindow;
 }
 @end
 
@@ -19,15 +18,13 @@
     self = [super init];
     if (self) {
         presenter = [[SQAOverlayPresenter alloc] init];
-        overlayWindow = [[SQAOverlayWindowController alloc] init];
+        presenter.overlayView = [[SQAOverlayWindowController alloc] init];
     }
     return self;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [overlayWindow showWindow:nil];
-
     EventHotKeyRef hotKeyRef;
     EventHotKeyID hotKeyID;
     EventTypeSpec eventType;

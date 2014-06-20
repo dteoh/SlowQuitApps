@@ -43,6 +43,7 @@
 		060A2EA5194ABB5200B51D29 /* SQAOverlayWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAOverlayWindowController.m; sourceTree = "<group>"; };
 		060A2EA7194ABD9B00B51D29 /* SQAOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAOverlayView.h; sourceTree = "<group>"; };
 		060A2EA8194ABD9B00B51D29 /* SQAOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAOverlayView.m; sourceTree = "<group>"; };
+		063486B01953AF6C007E8964 /* SQAOverlayViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAOverlayViewInterface.h; sourceTree = "<group>"; };
 		06950465194A81E9007AB2D5 /* SlowQuitApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06950468194A81E9007AB2D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0695046B194A81E9007AB2D5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -137,6 +138,7 @@
 				060A2EA2194AB15A00B51D29 /* SQAOverlayPresenter.m */,
 				060A2EA7194ABD9B00B51D29 /* SQAOverlayView.h */,
 				060A2EA8194ABD9B00B51D29 /* SQAOverlayView.m */,
+				063486B01953AF6C007E8964 /* SQAOverlayViewInterface.h */,
 				060A2EA4194ABB5200B51D29 /* SQAOverlayWindowController.h */,
 				060A2EA5194ABB5200B51D29 /* SQAOverlayWindowController.m */,
 				0695046F194A81E9007AB2D5 /* Supporting Files */,

@@ -11,15 +11,20 @@
 
 - (void)cmdQPressed {
     start = CACurrentMediaTime();
+    [self.overlayView showOverlay];
 }
 
 - (void)cmdQHeldDown {
-    if (1000 <= ((CACurrentMediaTime() - start) * 1000)) {
+    const CFTimeInterval elapsed = (CACurrentMediaTime() - start) * 1000;
+    [self.overlayView setProgress:elapsed / 1000.0];
+    if (1000 <= elapsed) {
         [self terminateActiveApplication];
     }
 }
 
 - (void)cmdQReleased {
+    [self.overlayView hideOverlay];
+    [self.overlayView resetOverlay];
 }
 
 // TODO should this be here?

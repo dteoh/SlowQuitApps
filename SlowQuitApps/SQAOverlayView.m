@@ -21,16 +21,24 @@
         [layer addSublayer:outerCircle];
 
         innerCircle = makeInnerCirle(smallerCenteredRect(frameRect, 21));
-        innerCircle.strokeEnd = 0.95;
+        innerCircle.strokeEnd = self.progress;
         [layer addSublayer:innerCircle];
-
-        [self redraw];
     }
     return self;
 }
 
-- (void)redraw {
-    [self.layer needsDisplay];
+- (BOOL)wantsUpdateLayer {
+    return YES;
+}
+
+- (void)updateLayer {
+    innerCircle.strokeEnd = self.progress;
+    [innerCircle setNeedsDisplay];
+}
+
+- (void)resetProgress {
+    innerCircle.strokeEnd = self.progress = 0;
+    [innerCircle removeAllAnimations];
 }
 
 #pragma - Helpers
