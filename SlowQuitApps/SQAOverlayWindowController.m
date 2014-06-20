@@ -19,7 +19,6 @@
                                                       backing:NSBackingStoreBuffered
                                                         defer:YES];
         [panel setOpaque:NO];
-        [panel center];
         panel.backgroundColor = NSColor.clearColor;
         panel.level = NSScreenSaverWindowLevel;
 
@@ -34,6 +33,7 @@
 #pragma - SQAOverlayViewInterface implementation
 
 - (void)showOverlay {
+    [self.window center];
     [self showWindow:nil];
 }
 
