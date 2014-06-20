@@ -32,8 +32,10 @@
 }
 
 - (void)close {
-    dispatch_source_cancel(timer);
-    timer = nil;
+    if (timer) {
+        dispatch_source_cancel(timer);
+        timer = nil;
+    }
 }
 
 - (void)tick {
