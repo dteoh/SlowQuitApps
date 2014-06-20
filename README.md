@@ -8,4 +8,4 @@ When the delay is active, an overlay is drawn at the center of the screen.
 
 ## Download
 
-Pre-built binaries can be downloaded from the [releases page](/releases).
+Pre-built binaries can be downloaded from the [releases page](https://github.com/dteoh/SlowQuitApps/releases).
