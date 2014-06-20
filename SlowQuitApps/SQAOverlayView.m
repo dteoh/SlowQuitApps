@@ -32,6 +32,7 @@
 }
 
 - (void)updateLayer {
+    [CATransaction setDisableActions:YES];
     innerCircle.strokeEnd = self.progress;
     [innerCircle setNeedsDisplay];
 }
