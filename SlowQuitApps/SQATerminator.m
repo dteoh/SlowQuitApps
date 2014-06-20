@@ -5,24 +5,30 @@
     BOOL missionInProgress;
     CFTimeInterval start;
     CFTimeInterval lastUpdate;
+    mission_complete_t missionComplete;
 }
 @end
 
 @implementation SQATerminator
 
-- (void)newMission {
+- (void)newMission:(mission_complete_t)block {
     start = lastUpdate = CACurrentMediaTime();
     missionInProgress = YES;
+    missionComplete = block;
 }
 
-- (void)updateMission {
+- (void)updateMission:(mission_report_t)block {
     lastUpdate = CACurrentMediaTime();
+
+    block(self.progress);
+
     if (self.progress < 1) {
         return;
     }
+
     if ([self hastaLaVistaBaby]) {
         missionInProgress = NO;
-        self.missionComplete();
+        missionComplete();
     }
 }
 

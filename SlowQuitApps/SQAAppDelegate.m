@@ -42,24 +42,23 @@
 
 - (void)cmdQPressed
 {
-    [terminator newMission];
     __weak typeof(terminator) weakTerminator = terminator;
-
-    [overlayView showOverlay];
     __weak typeof (overlayView) weakOverlay = overlayView;
 
-    terminator.missionComplete = ^{
+    [terminator newMission:^{
         [weakOverlay hideOverlay];
         [weakOverlay resetOverlay];
-    };
+    }];
+    [overlayView showOverlay];
 
     stream = [[SQACmdQStream alloc] init];
     __weak typeof(stream) weakStream = stream;
 
     stream.observer = ^(BOOL pressed) {
         if (pressed) {
-            [weakTerminator updateMission];
-            [weakOverlay setProgress:weakTerminator.progress];
+            [weakTerminator updateMission:^(CGFloat progress) {
+                [weakOverlay setProgress:progress];
+            }];
         } else {
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
