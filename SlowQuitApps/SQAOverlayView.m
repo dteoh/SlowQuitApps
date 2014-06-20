@@ -100,7 +100,12 @@ CAShapeLayer * makeInnerCirle(const CGRect frame) {
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.bounds = frame;
     layer.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
-    layer.path = CGPathCreateWithEllipseInRect(frame, NULL);
+
+    {
+        CGPathRef circle = CGPathCreateWithEllipseInRect(frame, NULL);
+        layer.path = circle;
+        CFRelease(circle);
+    }
 
     // We will be animating the stroke property
     layer.fillColor = NSColor.clearColor.CGColor;
@@ -120,7 +125,11 @@ CAShapeLayer * makeInnerCirle(const CGRect frame) {
     CAShapeLayer *mask = [CAShapeLayer layer];
     mask.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
     mask.bounds = frame;
-    mask.path = CGPathCreateWithEllipseInRect(frame, NULL);
+    {
+        CGPathRef circle = CGPathCreateWithEllipseInRect(frame, NULL);
+        mask.path = circle;
+        CFRelease(circle);
+    }
     mask.fillColor = [[NSColor colorWithDeviceWhite:1 alpha:0.7] CGColor];
 
     layer.mask = mask;
