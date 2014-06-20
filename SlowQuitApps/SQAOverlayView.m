@@ -59,7 +59,13 @@ CAShapeLayer * makeOuterCircle(const CGRect frame) {
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.bounds = frame;
     layer.position = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
-    layer.path = CGPathCreateWithEllipseInRect(frame, NULL);
+
+    {
+        CGPathRef circle = CGPathCreateWithEllipseInRect(frame, NULL);
+        layer.path = circle;
+        CFRelease(circle);
+    }
+
     layer.fillColor = NSColor.blackColor.CGColor;
 
     CAShapeLayer *mask = [CAShapeLayer layer];
@@ -70,10 +76,18 @@ CAShapeLayer * makeOuterCircle(const CGRect frame) {
     CGFloat diameter = CGRectGetWidth(frame) - thickness * 2;
 
     // This wizardry creates the circle cutout effect on the base layer.
-    CGMutablePathRef circle = CGPathCreateMutableCopy(CGPathCreateWithEllipseInRect(
-        CGRectMake(thickness, thickness, diameter, diameter), NULL));
-    CGPathAddPath(circle, NULL, CGPathCreateWithRect(frame, NULL));
-    mask.path = circle;
+    {
+        CGPathRef circle = CGPathCreateWithEllipseInRect(CGRectMake(thickness, thickness, diameter, diameter), NULL);
+        CGPathRef framePath = CGPathCreateWithRect(frame, NULL);
+        CGMutablePathRef mutCircle = CGPathCreateMutableCopy(circle);
+        CGPathAddPath(mutCircle, NULL, framePath);
+
+        mask.path = mutCircle;
+
+        CFRelease(mutCircle);
+        CFRelease(framePath);
+        CFRelease(circle);
+    }
     mask.fillColor = [[NSColor colorWithDeviceWhite:1 alpha:0.7] CGColor];
     mask.fillRule = kCAFillRuleEvenOdd;
 
