@@ -32,3 +32,7 @@ Pre-built binaries can be downloaded from the [releases page](https://github.com
 Unzip, drag the app to Applications, and then run it. You can optionally
 choose to automatically start the application on login.
 
+## Compatibility
+
+I have only tested the app on Mountain Lion (10.8) and Mavericks (10.9).
+
