@@ -30,7 +30,7 @@
     return self;
 }
 
-#pragma - SQAOverlayViewInterface implementation
+#pragma mark - SQAOverlayViewInterface implementation
 
 - (void)showOverlay {
     [self.window center];

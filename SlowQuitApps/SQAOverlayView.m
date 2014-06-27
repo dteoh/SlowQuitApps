@@ -42,7 +42,7 @@
     [innerCircle removeAllAnimations];
 }
 
-#pragma - Helpers
+#pragma mark - Helpers
 
 CGFloat deg2Rad(const CGFloat deg) {
     return deg * M_PI / 180;
