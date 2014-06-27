@@ -1,6 +1,7 @@
 @import Carbon;
 #import "SQAAppDelegate.h"
 #import "SQACmdQStream.h"
+#import "SQALoginItem.h"
 #import "SQAOverlayWindowController.h"
 #import "SQATerminator.h"
 
@@ -24,8 +25,18 @@
     return self;
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [self registerGlobalHotkey];
+
+    SQALoginItem *loginItem = [[SQALoginItem alloc] init];
+    [loginItem askAboutAutoStart];
+
+    // Hide from dock, command tab, etc.
+    // Not using LSBackgroundOnly so that we can display NSAlerts beforehand
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
+}
+
+- (void)registerGlobalHotkey {
     EventHotKeyRef hotKeyRef;
     EventHotKeyID hotKeyID;
     EventTypeSpec eventType;
@@ -40,8 +51,7 @@
                         kEventHotKeyExclusive, &hotKeyRef);
 }
 
-- (void)cmdQPressed
-{
+- (void)cmdQPressed {
     __weak typeof(terminator) weakTerminator = terminator;
     __weak typeof (overlayView) weakOverlay = overlayView;
 
@@ -68,7 +78,6 @@
     };
     [stream open];
 }
-
 
 OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *userData) {
     SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
