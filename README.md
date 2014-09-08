@@ -23,7 +23,7 @@ Some proposed solutions include:
 * changing the application quit keyboard short to use another keybinding
 
 This app implements the same approach as Google Chrome's "Warn Before Quitting"
-feature, except its now available on every app!
+feature, except it is now available on every app!
 
 ## Download & Install
 
