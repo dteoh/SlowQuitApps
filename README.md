@@ -32,7 +32,16 @@ Pre-built binaries can be downloaded from the [releases page](https://github.com
 Unzip, drag the app to Applications, and then run it. You can optionally
 choose to automatically start the application on login.
 
-## Compatibility
+### Compatibility
 
-I have only tested the app on Mountain Lion (10.8) and Mavericks (10.9).
+The app works on Mountain Lion (10.8) and newer.
+
+### Changing default delay
+
+For example, to change the delay to 5 seconds, open up Terminal app and
+run the following command:
+
+    $ defaults write com.dteoh.SlowQuitApps delay 5000
+
+The delay is specified in milliseconds.
 
