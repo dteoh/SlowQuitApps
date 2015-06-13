@@ -1,4 +1,5 @@
 #import "SQATerminator.h"
+#import "SQAPreferences.h"
 
 @interface SQATerminator() {
 @private
@@ -34,7 +35,7 @@
 
 - (CGFloat)progress {
     CFTimeInterval elapsed = (lastUpdate - start) * 1000;
-    return elapsed / 1000.0F;
+    return elapsed / (CGFloat)[SQAPreferences delay];
 }
 
 - (BOOL)hastaLaVistaBaby {
