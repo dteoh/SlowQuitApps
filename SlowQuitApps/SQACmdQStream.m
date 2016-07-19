@@ -40,7 +40,7 @@
 
 - (void)tick {
     // TODO this should actually test Cmd+Q
-    const BOOL pressed = GetCurrentKeyModifiers() == cmdKey;
+    const BOOL pressed = (GetCurrentKeyModifiers() & cmdKey) > 0;
     dispatch_async(dispatch_get_main_queue(), ^{
         observer(pressed);
     });
