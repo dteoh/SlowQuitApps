@@ -79,9 +79,31 @@
     [stream open];
 }
 
+NSRunningApplication* findActiveApp() {
+    for (NSRunningApplication *app in [[NSWorkspace sharedWorkspace] runningApplications]) {
+        if ([app isActive]) {
+            return app;
+        }
+    }
+    return NULL;
+}
+
+BOOL shouldHandleCmdQ() {
+    NSRunningApplication *activeApp = findActiveApp();
+    if (activeApp == NULL) {
+        return NO;
+    }
+    if ([activeApp.bundleIdentifier isEqualToString:@"com.apple.finder"]) {
+        return NO;
+    }
+    return YES;
+}
+
 OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *userData) {
-    SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
-    [delegate cmdQPressed];
+    if (shouldHandleCmdQ()) {
+        SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
+        [delegate cmdQPressed];
+    }
     return noErr;
 }
 
