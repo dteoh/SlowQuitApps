@@ -39,11 +39,23 @@
 }
 
 - (void)tick {
-    // TODO this should actually test Cmd+Q
-    const BOOL pressed = (GetCurrentKeyModifiers() & cmdKey) > 0;
+    KeyMap keyMap;
+    GetKeys(keyMap);
+    const BOOL cmdPressed = (GetCurrentKeyModifiers() & cmdKey) > 0;
+    const BOOL qPressed = keyQIsPressed(keyMap);
+    const BOOL pressed = cmdPressed && qPressed;
     dispatch_async(dispatch_get_main_queue(), ^{
         observer(pressed);
     });
+}
+
+BOOL keyQIsPressed(KeyMap keyMap) {
+    uint8_t index = kVK_ANSI_Q / 32;
+    uint8_t shift = kVK_ANSI_Q % 32;
+    if (keyMap[index].bigEndianValue & (1 << shift)) {
+        return YES;
+    }
+    return NO;
 }
 
 
