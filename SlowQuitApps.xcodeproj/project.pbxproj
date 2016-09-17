@@ -235,6 +235,9 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Douglas Teoh";
 				TargetAttributes = {
+					06950464194A81E9007AB2D5 = {
+						ProvisioningStyle = Manual;
+					};
 					06950485194A81E9007AB2D5 = {
 						TestTargetID = 06950464194A81E9007AB2D5;
 					};
@@ -439,6 +442,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlowQuitApps/SlowQuitApps-Prefix.pch";
 				INFOPLIST_FILE = "SlowQuitApps/SlowQuitApps-Info.plist";
@@ -454,6 +458,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlowQuitApps/SlowQuitApps-Prefix.pch";
 				INFOPLIST_FILE = "SlowQuitApps/SlowQuitApps-Info.plist";
