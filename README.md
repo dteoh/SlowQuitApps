@@ -32,6 +32,17 @@ Pre-built binaries can be downloaded from the [releases page](https://github.com
 Unzip, drag the app to Applications, and then run it. You can optionally
 choose to automatically start the application on login.
 
+### Homebrew
+
+If you wish to install the application from Homebrew:
+
+```
+$ brew tap dteoh/sqa
+$ brew cask install slowquitapps
+```
+
+The application will live at `/Applications/SlowQuitApps.app`.
+
 ### Compatibility
 
 The app works on Mountain Lion (10.8) and newer.
