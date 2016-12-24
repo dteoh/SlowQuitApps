@@ -32,9 +32,12 @@
 
 #pragma mark - SQAOverlayViewInterface implementation
 
-- (void)showOverlay {
+- (void)showOverlay:(CGFloat)duration {
     [self.window center];
     [self showWindow:nil];
+
+    overlayView.progressDuration = duration;
+    [overlayView updateLayer];
 }
 
 - (void)hideOverlay {
@@ -42,12 +45,7 @@
 }
 
 - (void)resetOverlay {
-    [overlayView resetProgress];
-}
-
-- (void)setProgress:(CGFloat)progress {
-    overlayView.progress = progress;
-    [overlayView updateLayer];
+    [overlayView reset];
 }
 
 @end

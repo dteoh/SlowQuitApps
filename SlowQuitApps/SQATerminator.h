@@ -7,5 +7,6 @@ typedef void(^mission_report_t)(CGFloat);
 
 - (void)newMission:(mission_complete_t)block;
 - (void)updateMission:(mission_report_t)block;
+- (CGFloat)missionDurationInSeconds;
 
 @end

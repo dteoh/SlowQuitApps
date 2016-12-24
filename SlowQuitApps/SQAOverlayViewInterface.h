@@ -2,11 +2,10 @@
 
 @protocol SQAOverlayViewInterface <NSObject>
 
-- (void)showOverlay;
+// duration is a value in seconds, controlling the amount of time
+// the overlay is visible and animated.
+- (void)showOverlay:(CGFloat)duration;
 - (void)hideOverlay;
 - (void)resetOverlay;
-
-// progress is a value between 0.0 and 1.0
-- (void)setProgress:(CGFloat)progress;
 
 @end

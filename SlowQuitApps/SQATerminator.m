@@ -33,9 +33,17 @@
     }
 }
 
+- (CGFloat)missionDurationInMilliseconds {
+    return (CGFloat)[SQAPreferences delay];
+}
+
+- (CGFloat)missionDurationInSeconds {
+    return self.missionDurationInMilliseconds / 1000.0;
+}
+
 - (CGFloat)progress {
     CFTimeInterval elapsed = (lastUpdate - start) * 1000;
-    return elapsed / (CGFloat)[SQAPreferences delay];
+    return elapsed / self.missionDurationInMilliseconds;
 }
 
 - (BOOL)hastaLaVistaBaby {
