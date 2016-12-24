@@ -21,7 +21,7 @@
         [layer addSublayer:outerCircle];
 
         innerCircle = makeInnerCirle(smallerCenteredRect(frameRect, 21));
-        innerCircle.strokeEnd = self.progress;
+        innerCircle.strokeEnd = 0;
         [layer addSublayer:innerCircle];
     }
     return self;
@@ -32,14 +32,19 @@
 }
 
 - (void)updateLayer {
-    [CATransaction setDisableActions:YES];
-    innerCircle.strokeEnd = self.progress;
-    [innerCircle setNeedsDisplay];
+    [innerCircle removeAllAnimations];
+
+    CABasicAnimation *strokeAnim = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    strokeAnim.fromValue = [NSNumber numberWithFloat:0];
+    strokeAnim.toValue = [NSNumber numberWithFloat:1];
+    strokeAnim.duration = self.progressDuration;
+
+    [innerCircle addAnimation:strokeAnim forKey:@"strokeAnim"];
 }
 
-- (void)resetProgress {
-    innerCircle.strokeEnd = self.progress = 0;
+- (void)reset {
     [innerCircle removeAllAnimations];
+    innerCircle.strokeEnd = 0;
 }
 
 #pragma mark - Helpers

@@ -2,8 +2,8 @@
 
 @interface SQAOverlayView : NSView
 
-@property (assign) CGFloat progress;
+@property (assign) CGFloat progressDuration;
 
-- (void)resetProgress;
+- (void)reset;
 
 @end
