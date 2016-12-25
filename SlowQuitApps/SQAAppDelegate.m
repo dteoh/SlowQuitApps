@@ -4,7 +4,7 @@
 #import "SQALoginItem.h"
 #import "SQAOverlayWindowController.h"
 #import "SQATerminator.h"
-
+#import "SQAThereCanBeOnlyOne.h"
 
 @interface SQAAppDelegate() {
 @private
@@ -26,6 +26,9 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    SQAThereCanBeOnlyOne *victor = [[SQAThereCanBeOnlyOne alloc] init];
+    [victor iWin];
+
     [self registerGlobalHotkey];
 
     SQALoginItem *loginItem = [[SQALoginItem alloc] init];

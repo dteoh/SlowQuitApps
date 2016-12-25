@@ -25,6 +25,7 @@
 		06950489194A81E9007AB2D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950468194A81E9007AB2D5 /* Cocoa.framework */; };
 		06950491194A81E9007AB2D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0695048F194A81E9007AB2D5 /* InfoPlist.strings */; };
 		06950493194A81E9007AB2D5 /* SlowQuitAppsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 06950492194A81E9007AB2D5 /* SlowQuitAppsTests.m */; };
+		06BE3FBE1E0F5DB100DDC7AE /* SQAThereCanBeOnlyOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 06BE3FBD1E0F5DB100DDC7AE /* SQAThereCanBeOnlyOne.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		0695048E194A81E9007AB2D5 /* SlowQuitAppsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SlowQuitAppsTests-Info.plist"; sourceTree = "<group>"; };
 		06950490194A81E9007AB2D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		06950492194A81E9007AB2D5 /* SlowQuitAppsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlowQuitAppsTests.m; sourceTree = "<group>"; };
+		06BE3FBC1E0F5DB100DDC7AE /* SQAThereCanBeOnlyOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAThereCanBeOnlyOne.h; sourceTree = "<group>"; };
+		06BE3FBD1E0F5DB100DDC7AE /* SQAThereCanBeOnlyOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAThereCanBeOnlyOne.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +155,8 @@
 				064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */,
 				063486B41953BA04007E8964 /* SQATerminator.h */,
 				063486B51953BA04007E8964 /* SQATerminator.m */,
+				06BE3FBC1E0F5DB100DDC7AE /* SQAThereCanBeOnlyOne.h */,
+				06BE3FBD1E0F5DB100DDC7AE /* SQAThereCanBeOnlyOne.m */,
 				0695046F194A81E9007AB2D5 /* Supporting Files */,
 			);
 			path = SlowQuitApps;
@@ -294,6 +299,7 @@
 				064F6D7D1B2CD4F100874B26 /* SQAPreferences.m in Sources */,
 				0695047C194A81E9007AB2D5 /* SQAAppDelegate.m in Sources */,
 				060A2EA6194ABB5200B51D29 /* SQAOverlayWindowController.m in Sources */,
+				06BE3FBE1E0F5DB100DDC7AE /* SQAThereCanBeOnlyOne.m in Sources */,
 				060A2EA9194ABD9B00B51D29 /* SQAOverlayView.m in Sources */,
 				0601D8D6195D22C400A2CB2E /* SQALoginItem.m in Sources */,
 				06950475194A81E9007AB2D5 /* main.m in Sources */,
