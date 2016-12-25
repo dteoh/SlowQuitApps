@@ -18,10 +18,8 @@
     missionComplete = block;
 }
 
-- (void)updateMission:(mission_report_t)block {
+- (void)updateMission {
     lastUpdate = CACurrentMediaTime();
-
-    block(self.progress);
 
     if (self.progress < 1) {
         return;

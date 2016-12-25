@@ -52,6 +52,7 @@
 }
 
 - (void)cmdQPressed {
+    __weak typeof(terminator) weakTerminator = terminator;
     __weak typeof (overlayView) weakOverlay = overlayView;
 
     [terminator newMission:^{
@@ -64,7 +65,9 @@
     __weak typeof(stream) weakStream = stream;
 
     stream.observer = ^(BOOL pressed) {
-        if (!pressed) {
+        if (pressed) {
+            [weakTerminator updateMission];
+        } else {
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
             [weakStream close];
