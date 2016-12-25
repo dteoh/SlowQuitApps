@@ -43,6 +43,16 @@ $ brew cask install slowquitapps
 
 The application will live at `/Applications/SlowQuitApps.app`.
 
+Updating the app:
+
+```
+$ brew cask update
+$ brew cask reinstall slowquitapps
+```
+
+Relaunch the application. Other application instances will be automatically
+terminated.
+
 ### Compatibility
 
 The app works on Mountain Lion (10.8) and newer.
