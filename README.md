@@ -62,7 +62,7 @@ The app works on Mountain Lion (10.8) and newer.
 For example, to change the delay to 5 seconds, open up Terminal app and
 run the following command:
 
-    $ defaults write com.dteoh.SlowQuitApps delay 5000
+    $ defaults write com.dteoh.SlowQuitApps delay -int 5000
 
 The delay is specified in milliseconds.
 
