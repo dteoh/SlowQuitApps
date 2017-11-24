@@ -46,7 +46,7 @@ The application will live at `/Applications/SlowQuitApps.app`.
 Updating the app:
 
 ```
-$ brew cask update
+$ brew update
 $ brew cask reinstall slowquitapps
 ```
 
