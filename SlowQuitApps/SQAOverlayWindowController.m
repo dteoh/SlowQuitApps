@@ -33,8 +33,9 @@
 #pragma mark - SQAOverlayViewInterface implementation
 
 - (void)showOverlay:(CGFloat)duration {
-    [self.window center];
     [self showWindow:nil];
+    [self.window center];
+    [self.window makeKeyAndOrderFront:self];
 
     overlayView.progressDuration = duration;
     [overlayView updateLayer];
