@@ -57,6 +57,8 @@ terminated.
 
 The app works on Mountain Lion (10.8) and newer.
 
+## Customization
+
 ### Changing default delay
 
 For example, to change the delay to 5 seconds, open up Terminal app and
@@ -65,4 +67,19 @@ run the following command:
     $ defaults write com.dteoh.SlowQuitApps delay -int 5000
 
 The delay is specified in milliseconds.
+
+### Whitelisting applications
+
+Whitelisted apps will be sent the Cmd-Q keypress directly.
+
+To whitelist an app, start by locating its bundle ID. For example, to whitelist
+the "Notes" application:
+
+    $ osascript -e 'id of app "Notes"'
+    com.apple.Notes
+    $ defaults write com.dteoh.SlowQuitApps whitelist -array-add com.apple.Notes
+
+To reset the whitelist:
+
+    $ defaults delete com.dteoh.SlowQuitApps whitelist
 

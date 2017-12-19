@@ -6,7 +6,7 @@
 + (NSUserDefaults *)defaults {
     static BOOL defaultsRegistered;
     if (!defaultsRegistered) {
-        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"delay": @1000}];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"delay": @1000, @"whitelist": @[]}];
         defaultsRegistered = YES;
     }
     return [NSUserDefaults standardUserDefaults];
@@ -22,5 +22,14 @@
     }
     return delay;
 }
+
++ (NSArray<NSString *> *)whitelist {
+    static NSArray<NSString *> *whitelist;
+    if (whitelist == NULL) {
+        whitelist = [[self defaults] stringArrayForKey:@"whitelist"];
+    }
+    return whitelist;
+}
+
 
 @end

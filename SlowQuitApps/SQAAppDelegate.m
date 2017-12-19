@@ -3,6 +3,7 @@
 #import "SQACmdQStream.h"
 #import "SQALoginItem.h"
 #import "SQAOverlayWindowController.h"
+#import "SQAPreferences.h"
 #import "SQATerminator.h"
 #import "SQAThereCanBeOnlyOne.h"
 
@@ -96,6 +97,11 @@ BOOL shouldHandleCmdQ() {
     if ([activeApp.bundleIdentifier isEqualToString:@"com.apple.finder"]) {
         return NO;
     }
+    for (NSString *bundleId in [SQAPreferences whitelist]) {
+        if ([activeApp.bundleIdentifier isEqualToString:bundleId]) {
+            return NO;
+        }
+    }
     return YES;
 }
 
@@ -103,8 +109,31 @@ OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *us
     if (shouldHandleCmdQ()) {
         SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
         [delegate cmdQPressed];
+        return noErr;
+    } else {
+        CGEventRef keyDownCmd, keyDownQ, keyUpQ, keyUpCmd;
+        keyDownCmd = CGEventCreateKeyboardEvent(NULL, kVK_Command, true);
+        keyDownQ = CGEventCreateKeyboardEvent(NULL, kVK_ANSI_Q, true);
+        keyUpQ = CGEventCreateKeyboardEvent(NULL, kVK_ANSI_Q, false);
+        keyUpCmd = CGEventCreateKeyboardEvent(NULL, kVK_Command, false);
+
+        CGEventPost(kCGAnnotatedSessionEventTap, keyDownCmd);
+        CGEventPost(kCGAnnotatedSessionEventTap, keyDownQ);
+        CGEventPost(kCGAnnotatedSessionEventTap, keyUpQ);
+        CGEventPost(kCGAnnotatedSessionEventTap, keyUpCmd);
+
+        CFRelease(keyDownCmd);
+        CFRelease(keyDownQ);
+        CFRelease(keyUpQ);
+        CFRelease(keyUpCmd);
+
+        // For some reason, this does not work, which is why we generate
+        // the synthetic keyboard events above.
+        // I could not find authoritative reasons why it doesn't work,
+        // but others speculate that shortcuts associated with menu items
+        // are different from hotkey events.
+        return eventNotHandledErr;
     }
-    return noErr;
 }
 
 @end
