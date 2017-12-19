@@ -98,7 +98,6 @@ BOOL shouldHandleCmdQ() {
         return NO;
     }
     for (NSString *bundleId in [SQAPreferences whitelist]) {
-        NSLog(@"%@", bundleId);
         if ([activeApp.bundleIdentifier isEqualToString:bundleId]) {
             return NO;
         }
