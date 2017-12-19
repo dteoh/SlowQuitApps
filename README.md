@@ -57,9 +57,9 @@ terminated.
 
 The app works on Mountain Lion (10.8) and newer.
 
-### Customization
+## Customization
 
-#### Changing default delay
+### Changing default delay
 
 For example, to change the delay to 5 seconds, open up Terminal app and
 run the following command:
@@ -68,7 +68,7 @@ run the following command:
 
 The delay is specified in milliseconds.
 
-#### Whitelisting applications
+### Whitelisting applications
 
 Whitelisted apps will be sent the Cmd-Q keypress directly.
 
