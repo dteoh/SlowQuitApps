@@ -1,6 +1,6 @@
-#import "SQALoginItem.h"
+#import "SQADialogs.h"
 
-@implementation SQALoginItem
+@implementation SQADialogs
 
 - (void)askAboutAutoStart {
     if ([self isRegisteredAsLoginItem]) {
@@ -73,6 +73,15 @@ appUrlRefCleanup:
     CFRelease(appUrlRef);
     
     return registered;
+}
+
+- (void)informHotkeyRegistrationFailure {
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.alertStyle = NSAlertStyleCritical;
+    alert.messageText = NSLocalizedString(@"SlowQuitApps cannot register ⌘Q", nil);
+    alert.informativeText = NSLocalizedString(@"Another application has exclusive control of ⌘Q, SlowQuitApps cannot continue. SlowQuitApps will exit.", nil);
+    [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [alert runModal];
 }
 
 @end

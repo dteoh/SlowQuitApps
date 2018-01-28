@@ -1,7 +1,7 @@
 @import Carbon;
 #import "SQAAppDelegate.h"
 #import "SQACmdQStream.h"
-#import "SQALoginItem.h"
+#import "SQADialogs.h"
 #import "SQAOverlayWindowController.h"
 #import "SQAPreferences.h"
 #import "SQATerminator.h"
@@ -39,13 +39,17 @@
 }
 
 - (void)continueLaunching {
+    SQADialogs *dialogs = [[SQADialogs alloc] init];
+
     if ([self registerGlobalHotkey]) {
-        SQALoginItem *loginItem = [[SQALoginItem alloc] init];
-        [loginItem askAboutAutoStart];
+        [dialogs askAboutAutoStart];
 
         // Hide from dock, command tab, etc.
         // Not using LSBackgroundOnly so that we can display NSAlerts beforehand
         [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
+    } else {
+        [dialogs informHotkeyRegistrationFailure];
+        [NSApp terminate:self];
     }
 }
 
