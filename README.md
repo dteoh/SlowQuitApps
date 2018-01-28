@@ -77,7 +77,7 @@ $ killall SlowQuitApps
 
 The currently set delay can be reviewed with:
 
-	$ defaults read com.dteoh.SlowQuitApps
+    $ defaults read com.dteoh.SlowQuitApps
 
 To change the delay to 5 seconds for example, open up Terminal app and
 run the following command:
