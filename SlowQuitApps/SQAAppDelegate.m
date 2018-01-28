@@ -11,6 +11,7 @@
 @private
     SQACmdQStream *stream;
     SQATerminator *terminator;
+    SQAThereCanBeOnlyOne *victor;
     id<SQAOverlayViewInterface> overlayView;
 }
 @end
@@ -22,25 +23,33 @@
     if (self) {
         overlayView = [[SQAOverlayWindowController alloc] init];
         terminator = [[SQATerminator alloc] init];
+
+        __weak typeof(self) weakSelf = self;
+        victor = [[SQAThereCanBeOnlyOne alloc] initWithCelebration:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf continueLaunching];
+            });
+        }];
     }
     return self;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    SQAThereCanBeOnlyOne *victor = [[SQAThereCanBeOnlyOne alloc] init];
     [victor iWin];
-
-    [self registerGlobalHotkey];
-
-    SQALoginItem *loginItem = [[SQALoginItem alloc] init];
-    [loginItem askAboutAutoStart];
-
-    // Hide from dock, command tab, etc.
-    // Not using LSBackgroundOnly so that we can display NSAlerts beforehand
-    [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
 }
 
-- (void)registerGlobalHotkey {
+- (void)continueLaunching {
+    if ([self registerGlobalHotkey]) {
+        SQALoginItem *loginItem = [[SQALoginItem alloc] init];
+        [loginItem askAboutAutoStart];
+
+        // Hide from dock, command tab, etc.
+        // Not using LSBackgroundOnly so that we can display NSAlerts beforehand
+        [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
+    }
+}
+
+- (BOOL)registerGlobalHotkey {
     EventHotKeyRef hotKeyRef;
     EventHotKeyID hotKeyID;
     EventTypeSpec eventType;
@@ -51,8 +60,9 @@
     hotKeyID.signature = 'sqad';
     hotKeyID.id = 1;
 
-    RegisterEventHotKey(kVK_ANSI_Q, cmdKey, hotKeyID, GetApplicationEventTarget(),
+    OSStatus result = RegisterEventHotKey(kVK_ANSI_Q, cmdKey, hotKeyID, GetApplicationEventTarget(),
                         kEventHotKeyExclusive, &hotKeyRef);
+    return result != eventHotKeyExistsErr;
 }
 
 - (void)cmdQPressed {
@@ -78,6 +88,10 @@
         }
     };
     [stream open];
+}
+
+- (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 NSRunningApplication* findActiveApp() {
