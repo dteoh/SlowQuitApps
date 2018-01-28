@@ -51,7 +51,13 @@ $ brew cask reinstall slowquitapps
 $ killall SlowQuitApps
 ```
 
-Relaunch the application.
+Then relaunch the application.
+
+Or using [brew-cask-upgrade](https://github.com/buo/homebrew-cask-upgrade):
+
+```
+$ brew cu slowquitapps
+```
 
 ### Compatibility
 
@@ -69,7 +75,11 @@ $ killall SlowQuitApps
 
 ### Changing default delay
 
-For example, to change the delay to 5 seconds, open up Terminal app and
+The currently set delay can be reviewed with:
+
+	$ defaults read com.dteoh.SlowQuitApps
+
+To change the delay to 5 seconds for example, open up Terminal app and
 run the following command:
 
     $ defaults write com.dteoh.SlowQuitApps delay -int 5000
