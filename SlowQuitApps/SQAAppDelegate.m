@@ -5,13 +5,11 @@
 #import "SQAOverlayWindowController.h"
 #import "SQAPreferences.h"
 #import "SQATerminator.h"
-#import "SQAThereCanBeOnlyOne.h"
 
 @interface SQAAppDelegate() {
 @private
     SQACmdQStream *stream;
     SQATerminator *terminator;
-    SQAThereCanBeOnlyOne *victor;
     id<SQAOverlayViewInterface> overlayView;
 }
 @end
@@ -23,22 +21,11 @@
     if (self) {
         overlayView = [[SQAOverlayWindowController alloc] init];
         terminator = [[SQATerminator alloc] init];
-
-        __weak typeof(self) weakSelf = self;
-        victor = [[SQAThereCanBeOnlyOne alloc] initWithCelebration:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf continueLaunching];
-            });
-        }];
     }
     return self;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [victor iWin];
-}
-
-- (void)continueLaunching {
     SQADialogs *dialogs = [[SQADialogs alloc] init];
 
     if ([self registerGlobalHotkey]) {
@@ -92,10 +79,6 @@
         }
     };
     [stream open];
-}
-
-- (void)dealloc {
-    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 NSRunningApplication* findActiveApp() {
