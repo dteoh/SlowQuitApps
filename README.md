@@ -48,16 +48,24 @@ Updating the app:
 ```
 $ brew update
 $ brew cask reinstall slowquitapps
+$ killall SlowQuitApps
 ```
 
-Relaunch the application. Other application instances will be automatically
-terminated.
+Relaunch the application.
 
 ### Compatibility
 
 The app works on Mountain Lion (10.8) and newer.
 
 ## Customization
+
+You must exit and relaunch SlowQuitApps after making customizations.
+
+To exit the app:
+
+```
+$ killall SlowQuitApps
+```
 
 ### Changing default delay
 
