@@ -101,3 +101,6 @@ To reset the whitelist:
 
     $ defaults delete com.dteoh.SlowQuitApps whitelist
 
+To check whitelisted apps:
+
+    $ defaults read com.dteoh.SlowQuitApps whitelist
