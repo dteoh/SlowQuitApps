@@ -98,12 +98,14 @@ BOOL shouldHandleCmdQ() {
     if ([activeApp.bundleIdentifier isEqualToString:@"com.apple.finder"]) {
         return NO;
     }
+
+    BOOL invertList = [SQAPreferences invertList];
     for (NSString *bundleId in [SQAPreferences whitelist]) {
         if ([activeApp.bundleIdentifier isEqualToString:bundleId]) {
-            return NO;
+            return (invertList ?  YES : NO);
         }
     }
-    return YES;
+    return (invertList ?  NO : YES);
 }
 
 OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *userData) {
