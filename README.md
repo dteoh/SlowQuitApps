@@ -104,3 +104,17 @@ To reset the whitelist:
 To check whitelisted apps:
 
     $ defaults read com.dteoh.SlowQuitApps whitelist
+
+#### Blacklist mode
+
+The whitelist can be used to only allow SlowQuitApps to handle Cmd-Q for those
+selected applications. To switch on this mode:
+
+    $ defaults write com.dteoh.SlowQuitApps invertList -bool YES
+
+In this mode, non-whitelisted apps will be sent the Cmd-Q keypress directly.
+
+To switch off this mode:
+
+    $ defaults delete com.dteoh.SlowQuitApps invertList
+
