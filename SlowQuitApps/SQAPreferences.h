@@ -4,5 +4,5 @@
 
 + (NSInteger)delay;
 + (NSArray<NSString *> *)whitelist;
-
++ (BOOL)invertList;
 @end
