@@ -61,7 +61,9 @@ $ brew cu slowquitapps
 
 ### Compatibility
 
-The app works on Mountain Lion (10.8) and newer.
+The app works on Mavericks (10.9) and newer.
+
+For Mountain Lion (10.8) support, please download version 0.4.0.
 
 ## Customization
 
