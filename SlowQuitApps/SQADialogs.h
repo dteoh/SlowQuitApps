@@ -4,5 +4,6 @@
 
 - (void)askAboutAutoStart;
 - (void)informHotkeyRegistrationFailure;
+- (void)informAccessibilityRequirement;
 
 @end

@@ -28,6 +28,13 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     SQADialogs *dialogs = [[SQADialogs alloc] init];
 
+    if (!hasAccessibility()) {
+        [dialogs informAccessibilityRequirement];
+        // If we terminate now, the special accesibility alert/dialog
+        // from the framework/OS will dissappear immediately.
+        return;
+    }
+
     if ([self registerGlobalHotkey]) {
         [dialogs askAboutAutoStart];
 
@@ -88,6 +95,11 @@ NSRunningApplication* findActiveApp() {
         }
     }
     return NULL;
+}
+
+BOOL hasAccessibility() {
+    NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+    return AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
 }
 
 BOOL shouldHandleCmdQ() {
