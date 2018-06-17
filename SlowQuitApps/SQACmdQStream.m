@@ -4,15 +4,18 @@
 @interface SQACmdQStream() {
 @private
     dispatch_source_t timer;
+    SQAQResolver *qResolver;
 }
 @end
 
 @implementation SQACmdQStream
 @synthesize observer;
 
-- (id)init {
+- (id)initWithQResolver:(SQAQResolver *)resolver {
     self = [super init];
     if (!self) return self;
+
+    qResolver = resolver;
 
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
@@ -39,19 +42,19 @@
 
 - (void)tick {
     const BOOL cmdPressed = keyCmdIsPressed();
-    const BOOL qPressed = keyQIsPressed();
+    const BOOL qPressed = [self isQPressed];
     const BOOL pressed = cmdPressed && qPressed;
     dispatch_async(dispatch_get_main_queue(), ^{
         observer(pressed);
     });
 }
 
-BOOL keyCmdIsPressed() {
-    return CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, kVK_Command);
+- (BOOL)isQPressed {
+    return CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, qResolver.keyCode);
 }
 
-BOOL keyQIsPressed() {
-    return CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, kVK_ANSI_Q);
+BOOL keyCmdIsPressed() {
+    return CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, kVK_Command);
 }
 
 @end
