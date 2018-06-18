@@ -11,6 +11,7 @@
 		060A2EA0194AA79500B51D29 /* SQACmdQStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 060A2E9F194AA79500B51D29 /* SQACmdQStream.m */; };
 		060A2EA6194ABB5200B51D29 /* SQAOverlayWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 060A2EA5194ABB5200B51D29 /* SQAOverlayWindowController.m */; };
 		060A2EA9194ABD9B00B51D29 /* SQAOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 060A2EA8194ABD9B00B51D29 /* SQAOverlayView.m */; };
+		0625BF4020D65E9F0001FF96 /* SQAQResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0625BF3F20D65E9F0001FF96 /* SQAQResolver.m */; };
 		063486B61953BA04007E8964 /* SQATerminator.m in Sources */ = {isa = PBXBuildFile; fileRef = 063486B51953BA04007E8964 /* SQATerminator.m */; };
 		064F6D7D1B2CD4F100874B26 /* SQAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */; };
 		064F6D7E1B2CD4F100874B26 /* SQAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */; };
@@ -46,6 +47,8 @@
 		060A2EA5194ABB5200B51D29 /* SQAOverlayWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAOverlayWindowController.m; sourceTree = "<group>"; };
 		060A2EA7194ABD9B00B51D29 /* SQAOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAOverlayView.h; sourceTree = "<group>"; };
 		060A2EA8194ABD9B00B51D29 /* SQAOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAOverlayView.m; sourceTree = "<group>"; };
+		0625BF3E20D65E9F0001FF96 /* SQAQResolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQAQResolver.h; sourceTree = "<group>"; };
+		0625BF3F20D65E9F0001FF96 /* SQAQResolver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQAQResolver.m; sourceTree = "<group>"; };
 		063486B01953AF6C007E8964 /* SQAOverlayViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAOverlayViewInterface.h; sourceTree = "<group>"; };
 		063486B41953BA04007E8964 /* SQATerminator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQATerminator.h; sourceTree = "<group>"; };
 		063486B51953BA04007E8964 /* SQATerminator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQATerminator.m; sourceTree = "<group>"; };
@@ -150,6 +153,8 @@
 				060A2EA5194ABB5200B51D29 /* SQAOverlayWindowController.m */,
 				064F6D7B1B2CD4F100874B26 /* SQAPreferences.h */,
 				064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */,
+				0625BF3E20D65E9F0001FF96 /* SQAQResolver.h */,
+				0625BF3F20D65E9F0001FF96 /* SQAQResolver.m */,
 				063486B41953BA04007E8964 /* SQATerminator.h */,
 				063486B51953BA04007E8964 /* SQATerminator.m */,
 				0695046F194A81E9007AB2D5 /* Supporting Files */,
@@ -294,6 +299,7 @@
 				064F6D7D1B2CD4F100874B26 /* SQAPreferences.m in Sources */,
 				0695047C194A81E9007AB2D5 /* SQAAppDelegate.m in Sources */,
 				060A2EA6194ABB5200B51D29 /* SQAOverlayWindowController.m in Sources */,
+				0625BF4020D65E9F0001FF96 /* SQAQResolver.m in Sources */,
 				060A2EA9194ABD9B00B51D29 /* SQAOverlayView.m in Sources */,
 				0601D8D6195D22C400A2CB2E /* SQADialogs.m in Sources */,
 				06950475194A81E9007AB2D5 /* main.m in Sources */,

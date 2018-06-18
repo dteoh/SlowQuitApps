@@ -1,5 +1,6 @@
 @import Carbon;
 #import "SQAAppDelegate.h"
+#import "SQAQResolver.h"
 #import "SQACmdQStream.h"
 #import "SQADialogs.h"
 #import "SQAOverlayWindowController.h"
@@ -10,6 +11,7 @@
 @private
     SQACmdQStream *stream;
     SQATerminator *terminator;
+    SQAQResolver *qResolver;
     id<SQAOverlayViewInterface> overlayView;
 }
 @end
@@ -21,6 +23,7 @@
     if (self) {
         overlayView = [[SQAOverlayWindowController alloc] init];
         terminator = [[SQATerminator alloc] init];
+        qResolver = [[SQAQResolver alloc] init];
     }
     return self;
 }
@@ -58,7 +61,7 @@
     hotKeyID.signature = 'sqad';
     hotKeyID.id = 1;
 
-    OSStatus result = RegisterEventHotKey(kVK_ANSI_Q, cmdKey, hotKeyID, GetApplicationEventTarget(),
+    OSStatus result = RegisterEventHotKey(qResolver.keyCode, cmdKey, hotKeyID, GetApplicationEventTarget(),
                         kEventHotKeyExclusive, &hotKeyRef);
     return result != eventHotKeyExistsErr;
 }
@@ -73,7 +76,7 @@
     }];
     [overlayView showOverlay:terminator.missionDurationInSeconds];
 
-    stream = [[SQACmdQStream alloc] init];
+    stream = [[SQACmdQStream alloc] initWithQResolver:qResolver];
     __weak typeof(stream) weakStream = stream;
 
     stream.observer = ^(BOOL pressed) {
@@ -86,6 +89,10 @@
         }
     };
     [stream open];
+}
+
+- (CGKeyCode)qKeyCode {
+    return [qResolver keyCode];
 }
 
 NSRunningApplication* findActiveApp() {
@@ -121,15 +128,16 @@ BOOL shouldHandleCmdQ() {
 }
 
 OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *userData) {
+    SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
+
     if (shouldHandleCmdQ()) {
-        SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
         [delegate cmdQPressed];
         return noErr;
     } else {
         CGEventRef keyDownCmd, keyDownQ, keyUpQ, keyUpCmd;
         keyDownCmd = CGEventCreateKeyboardEvent(NULL, kVK_Command, true);
-        keyDownQ = CGEventCreateKeyboardEvent(NULL, kVK_ANSI_Q, true);
-        keyUpQ = CGEventCreateKeyboardEvent(NULL, kVK_ANSI_Q, false);
+        keyDownQ = CGEventCreateKeyboardEvent(NULL, [delegate qKeyCode], true);
+        keyUpQ = CGEventCreateKeyboardEvent(NULL, [delegate qKeyCode], false);
         keyUpCmd = CGEventCreateKeyboardEvent(NULL, kVK_Command, false);
 
         CGEventPost(kCGAnnotatedSessionEventTap, keyDownCmd);
