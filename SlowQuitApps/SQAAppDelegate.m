@@ -40,7 +40,7 @@
         return;
     }
 
-    if ([self registerGlobalHotkey]) {
+    if ([self registerGlobalHotkey] && [self registerGlobalHotkeyCG]) {
         [dialogs askAboutAutoStart];
 
         // Hide from dock, command tab, etc.
@@ -66,6 +66,22 @@
     OSStatus result = RegisterEventHotKey(qResolver.keyCode, cmdKey, hotKeyID, GetApplicationEventTarget(),
                         kEventHotKeyExclusive, &hotKeyRef);
     return result != eventHotKeyExistsErr;
+}
+
+- (BOOL)registerGlobalHotkeyCG {
+    // TODO properly release when application quits.
+    CFMachPortRef eventTapPort = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap,
+                                                  kCGEventTapOptionDefault, kCGEventKeyDown,
+                                                  &eventTapHandler, (__bridge void *)self);
+    if (!eventTapPort) {
+        return false;
+    }
+
+    CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTapPort, 0);
+    CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
+    CGEventTapEnable(eventTapPort, true);
+    CFRunLoopRun();
+    return true;
 }
 
 - (void)cmdQPressed {
@@ -167,6 +183,17 @@ OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *us
         // are different from hotkey events.
         return eventNotHandledErr;
     }
+}
+
+CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *userInfo) {
+    NSLog(@"eventTapHandler called");
+    if (type != kCGEventKeyDown) {
+        return event;
+    }
+
+    CGKeyCode keyCode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
+    NSLog(@"keyCode=%d", keyCode);
+    return event;
 }
 
 @end
