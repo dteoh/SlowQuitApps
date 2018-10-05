@@ -70,8 +70,10 @@
 
 - (BOOL)registerGlobalHotkeyCG {
     // TODO properly release when application quits.
-    CFMachPortRef eventTapPort = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap,
-                                                  kCGEventTapOptionDefault, kCGEventKeyDown,
+    CGEventMask eventMask = (1 << kCGEventFlagsChanged) | (1 << kCGEventKeyDown);
+    CFMachPortRef eventTapPort = CGEventTapCreate(kCGAnnotatedSessionEventTap,
+                                                  kCGHeadInsertEventTap,
+                                                  kCGEventTapOptionDefault, eventMask,
                                                   &eventTapHandler, (__bridge void *)self);
     if (!eventTapPort) {
         return false;
