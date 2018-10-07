@@ -21,9 +21,11 @@
 - (id)init {
     self = [super init];
     if (self) {
-        overlayView = [[SQAOverlayWindowController alloc] init];
         terminator = [[SQATerminator alloc] init];
         qResolver = [[SQAQResolver alloc] init];
+        if ([SQAPreferences displayOverlay]) {
+            overlayView = [[SQAOverlayWindowController alloc] init];
+        }
     }
     return self;
 }
@@ -68,13 +70,19 @@
 
 - (void)cmdQPressed {
     __weak typeof(terminator) weakTerminator = terminator;
-    __weak typeof (overlayView) weakOverlay = overlayView;
+    __weak typeof(overlayView) weakOverlay = overlayView;
 
-    [terminator newMission:^{
-        [weakOverlay hideOverlay];
-        [weakOverlay resetOverlay];
-    }];
-    [overlayView showOverlay:terminator.missionDurationInSeconds];
+    void (^hideOverlay)(void) = ^{
+        if (overlayView) {
+            [weakOverlay hideOverlay];
+            [weakOverlay resetOverlay];
+        }
+    };
+
+    [terminator newMission:hideOverlay];
+    if (overlayView) {
+        [overlayView showOverlay:terminator.missionDurationInSeconds];
+    }
 
     stream = [[SQACmdQStream alloc] initWithQResolver:qResolver];
     __weak typeof(stream) weakStream = stream;
@@ -83,8 +91,7 @@
         if (pressed) {
             [weakTerminator updateMission];
         } else {
-            [weakOverlay hideOverlay];
-            [weakOverlay resetOverlay];
+            hideOverlay();
             [weakStream close];
         }
     };
