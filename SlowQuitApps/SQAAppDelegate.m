@@ -6,12 +6,14 @@
 #import "SQAOverlayWindowController.h"
 #import "SQAPreferences.h"
 #import "SQATerminator.h"
+#import "SQAStateMachine.h"
 
 @interface SQAAppDelegate() {
 @private
     SQACmdQStream *stream;
     SQATerminator *terminator;
     SQAQResolver *qResolver;
+    SQAStateMachine *stateMachine;
     id<SQAOverlayViewInterface> overlayView;
 }
 @end
@@ -40,7 +42,7 @@
         return;
     }
 
-    if ([self registerGlobalHotkey] && [self registerGlobalHotkeyCG]) {
+    if ([self registerGlobalHotkeyCG]) {
         [dialogs askAboutAutoStart];
 
         // Hide from dock, command tab, etc.
@@ -86,37 +88,74 @@
     return true;
 }
 
-- (void)cmdQPressed {
-    __weak typeof(terminator) weakTerminator = terminator;
+- (void)destroyStateMachine {
+    stateMachine = nil;
+}
 
-    void (^hideOverlay)(void) = NULL;
-    if (overlayView) {
+- (void)cmdQPressed {
+    if (stateMachine) {
+        [stateMachine holding];
+    } else {
+        __weak typeof(self) weakSelf = self;
+        stateMachine = [[SQAStateMachine alloc] init];
+        __weak typeof(stateMachine) weakSM = stateMachine;
+
         __weak typeof(overlayView) weakOverlay = overlayView;
-        hideOverlay = ^{
+
+        stateMachine.onStart = ^{
+            [weakOverlay showOverlay:weakSM.completionDurationInSeconds];
+        };
+        stateMachine.onCompletion = ^{
+            NSRunningApplication *app = findActiveApp();
+            if (app) {
+                [app terminate];
+            }
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
+            [weakSelf destroyStateMachine];
         };
-    } else {
-        hideOverlay = ^{}; // NOOP
+        stateMachine.onCancelled = ^{
+            [weakOverlay hideOverlay];
+            [weakOverlay resetOverlay];
+            [weakSelf destroyStateMachine];
+         };
     }
+//    __weak typeof(terminator) weakTerminator = terminator;
+//
+//    void (^hideOverlay)(void) = NULL;
+//    if (overlayView) {
+//        __weak typeof(overlayView) weakOverlay = overlayView;
+//        hideOverlay = ^{
+//            [weakOverlay hideOverlay];
+//            [weakOverlay resetOverlay];
+//        };
+//    } else {
+//        hideOverlay = ^{}; // NOOP
+//    }
+//
+//    [terminator newMission:hideOverlay];
+//    if (overlayView) {
+//        [overlayView showOverlay:terminator.missionDurationInSeconds];
+//    }
+//
+//    stream = [[SQACmdQStream alloc] initWithQResolver:qResolver];
+//    __weak typeof(stream) weakStream = stream;
+//
+//    stream.observer = ^(BOOL pressed) {
+//        if (pressed) {
+//            [weakTerminator updateMission];
+//        } else {
+//            hideOverlay();
+//            [weakStream close];
+//        }
+//    };
+//    [stream open];
+}
 
-    [terminator newMission:hideOverlay];
-    if (overlayView) {
-        [overlayView showOverlay:terminator.missionDurationInSeconds];
+- (void)cmdQNotPressed {
+    if (stateMachine) {
+        [stateMachine cancelled];
     }
-
-    stream = [[SQACmdQStream alloc] initWithQResolver:qResolver];
-    __weak typeof(stream) weakStream = stream;
-
-    stream.observer = ^(BOOL pressed) {
-        if (pressed) {
-            [weakTerminator updateMission];
-        } else {
-            hideOverlay();
-            [weakStream close];
-        }
-    };
-    [stream open];
 }
 
 - (CGKeyCode)qKeyCode {
@@ -195,18 +234,29 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
     if (type != kCGEventFlagsChanged && type != kCGEventKeyDown) {
         return event;
     }
-
     SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userInfo;
-    BOOL command = (CGEventGetFlags(event) & kCGEventFlagMaskCommand) > 0;
 
+    BOOL command = (CGEventGetFlags(event) & kCGEventFlagMaskCommand) > 0;
+    BOOL q = [@"q" isEqualToString:stringFromCGKeyboardEvent(event)];
+    if (!command || !q) {
+        [delegate cmdQNotPressed];
+        return event;
+    }
+
+    if (shouldHandleCmdQ()) {
+        [delegate cmdQPressed];
+        return NULL;
+    }
+
+    [delegate cmdQNotPressed];
+    return event;
+}
+
+NSString * stringFromCGKeyboardEvent(CGEventRef event) {
     UniCharCount actualStringLength = 0;
     UniChar unicodeString[1];
     CGEventKeyboardGetUnicodeString(event, 1, &actualStringLength, unicodeString);
-    NSString *key = [NSString stringWithCharacters:unicodeString length:actualStringLength];
-
-    NSLog(@"command=%hhd key=%@", command, key);
-
-    return event;
+    return [NSString stringWithCharacters:unicodeString length:actualStringLength];
 }
 
 @end
