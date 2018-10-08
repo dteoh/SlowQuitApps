@@ -71,7 +71,7 @@
 - (BOOL)registerGlobalHotkeyCG {
     // TODO properly release when application quits.
     CGEventMask eventMask = (1 << kCGEventFlagsChanged) | (1 << kCGEventKeyDown);
-    CFMachPortRef eventTapPort = CGEventTapCreate(kCGAnnotatedSessionEventTap,
+    CFMachPortRef eventTapPort = CGEventTapCreate(kCGHIDEventTap,
                                                   kCGHeadInsertEventTap,
                                                   kCGEventTapOptionDefault, eventMask,
                                                   &eventTapHandler, (__bridge void *)self);
@@ -192,13 +192,20 @@ OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *us
 }
 
 CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *userInfo) {
-    NSLog(@"eventTapHandler called");
-    if (type != kCGEventKeyDown) {
+    if (type != kCGEventFlagsChanged && type != kCGEventKeyDown) {
         return event;
     }
 
-    CGKeyCode keyCode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
-    NSLog(@"keyCode=%d", keyCode);
+    SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userInfo;
+    BOOL command = (CGEventGetFlags(event) & kCGEventFlagMaskCommand) > 0;
+
+    UniCharCount actualStringLength = 0;
+    UniChar unicodeString[1];
+    CGEventKeyboardGetUnicodeString(event, 1, &actualStringLength, unicodeString);
+    NSString *key = [NSString stringWithCharacters:unicodeString length:actualStringLength];
+
+    NSLog(@"command=%hhd key=%@", command, key);
+
     return event;
 }
 
