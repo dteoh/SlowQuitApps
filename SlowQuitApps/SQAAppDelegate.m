@@ -1,18 +1,13 @@
 @import Carbon;
 #import "SQAAppDelegate.h"
 #import "SQAQResolver.h"
-#import "SQACmdQStream.h"
 #import "SQADialogs.h"
 #import "SQAOverlayWindowController.h"
 #import "SQAPreferences.h"
-#import "SQATerminator.h"
 #import "SQAStateMachine.h"
 
 @interface SQAAppDelegate() {
 @private
-    SQACmdQStream *stream;
-    SQATerminator *terminator;
-    SQAQResolver *qResolver;
     SQAStateMachine *stateMachine;
     id<SQAOverlayViewInterface> overlayView;
 }
@@ -23,8 +18,6 @@
 - (id)init {
     self = [super init];
     if (self) {
-        terminator = [[SQATerminator alloc] init];
-        qResolver = [[SQAQResolver alloc] init];
         if ([SQAPreferences displayOverlay]) {
             overlayView = [[SQAOverlayWindowController alloc] init];
         }
@@ -52,22 +45,6 @@
         [dialogs informHotkeyRegistrationFailure];
         [NSApp terminate:self];
     }
-}
-
-- (BOOL)registerGlobalHotkey {
-    EventHotKeyRef hotKeyRef;
-    EventHotKeyID hotKeyID;
-    EventTypeSpec eventType;
-    eventType.eventClass = kEventClassKeyboard;
-    eventType.eventKind = kEventHotKeyPressed;
-
-    InstallApplicationEventHandler(&cmdQHandler, 1, &eventType, (__bridge void *)self, NULL);
-    hotKeyID.signature = 'sqad';
-    hotKeyID.id = 1;
-
-    OSStatus result = RegisterEventHotKey(qResolver.keyCode, cmdKey, hotKeyID, GetApplicationEventTarget(),
-                        kEventHotKeyExclusive, &hotKeyRef);
-    return result != eventHotKeyExistsErr;
 }
 
 - (BOOL)registerGlobalHotkeyCG {
@@ -144,10 +121,6 @@
     }
 }
 
-- (CGKeyCode)qKeyCode {
-    return [qResolver keyCode];
-}
-
 NSRunningApplication* findActiveApp() {
     for (NSRunningApplication *app in [[NSWorkspace sharedWorkspace] runningApplications]) {
         if ([app isActive]) {
@@ -184,38 +157,6 @@ BOOL shouldHandleCmdQ() {
     return (invertList ? NO : YES);
 }
 
-OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *userData) {
-    SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
-
-    if (shouldHandleCmdQ()) {
-        [delegate cmdQPressed];
-        return noErr;
-    } else {
-        CGEventRef keyDownCmd, keyDownQ, keyUpQ, keyUpCmd;
-        keyDownCmd = CGEventCreateKeyboardEvent(NULL, kVK_Command, true);
-        keyDownQ = CGEventCreateKeyboardEvent(NULL, [delegate qKeyCode], true);
-        keyUpQ = CGEventCreateKeyboardEvent(NULL, [delegate qKeyCode], false);
-        keyUpCmd = CGEventCreateKeyboardEvent(NULL, kVK_Command, false);
-
-        CGEventPost(kCGAnnotatedSessionEventTap, keyDownCmd);
-        CGEventPost(kCGAnnotatedSessionEventTap, keyDownQ);
-        CGEventPost(kCGAnnotatedSessionEventTap, keyUpQ);
-        CGEventPost(kCGAnnotatedSessionEventTap, keyUpCmd);
-
-        CFRelease(keyDownCmd);
-        CFRelease(keyDownQ);
-        CFRelease(keyUpQ);
-        CFRelease(keyUpCmd);
-
-        // For some reason, this does not work, which is why we generate
-        // the synthetic keyboard events above.
-        // I could not find authoritative reasons why it doesn't work,
-        // but others speculate that shortcuts associated with menu items
-        // are different from hotkey events.
-        return eventNotHandledErr;
-    }
-}
-
 CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *userInfo) {
     if (type != kCGEventFlagsChanged && type != kCGEventKeyDown) {
         return event;
@@ -240,7 +181,7 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
 
 NSString * stringFromCGKeyboardEvent(CGEventRef event) {
     UniCharCount actualStringLength = 0;
-    UniChar unicodeString[1];
+    UniChar unicodeString[4] = {0, 0, 0, 0};
     CGEventKeyboardGetUnicodeString(event, 1, &actualStringLength, unicodeString);
     return [NSString stringWithCharacters:unicodeString length:actualStringLength];
 }
