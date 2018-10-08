@@ -10,6 +10,8 @@
 @private
     SQAStateMachine *stateMachine;
     id<SQAOverlayViewInterface> overlayView;
+    CFMachPortRef eventTapPort;
+    CFRunLoopSourceRef eventRunLoop;
 }
 @end
 
@@ -47,21 +49,33 @@
     }
 }
 
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    if (eventTapPort) {
+        CFRelease(eventTapPort);
+    }
+    if (eventRunLoop) {
+        CFRelease(eventRunLoop);
+    }
+}
+
 - (BOOL)registerGlobalHotkeyCG {
-    // TODO properly release when application quits.
     CGEventMask eventMask = (1 << kCGEventFlagsChanged) | (1 << kCGEventKeyDown);
-    CFMachPortRef eventTapPort = CGEventTapCreate(kCGHIDEventTap,
-                                                  kCGHeadInsertEventTap,
-                                                  kCGEventTapOptionDefault, eventMask,
-                                                  &eventTapHandler, (__bridge void *)self);
-    if (!eventTapPort) {
+    CFMachPortRef port = CGEventTapCreate(kCGHIDEventTap,
+                                          kCGHeadInsertEventTap,
+                                          kCGEventTapOptionDefault, eventMask,
+                                          &eventTapHandler, (__bridge void *)self);
+    if (!port) {
         return false;
     }
 
     CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTapPort, 0);
     CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
-    CGEventTapEnable(eventTapPort, true);
+    CGEventTapEnable(port, true);
     CFRunLoopRun();
+
+    eventTapPort = port;
+    eventRunLoop = runLoopSource;
+
     return true;
 }
 
