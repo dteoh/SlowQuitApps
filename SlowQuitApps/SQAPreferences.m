@@ -6,10 +6,19 @@
 + (NSUserDefaults *)defaults {
     static BOOL defaultsRegistered;
     if (!defaultsRegistered) {
-        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"delay": @1000, @"whitelist": @[], @"invertList": @NO}];
+      NSDictionary *defaults = @{@"delay": @1000, @"whitelist": @[], @"invertList": @NO, @"displayOverlay": @YES};
+      [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
         defaultsRegistered = YES;
     }
     return [NSUserDefaults standardUserDefaults];
+}
+
++ (BOOL)displayOverlay {
+    static BOOL displayOverlay;
+    if (!displayOverlay) {
+        displayOverlay = [[self defaults] boolForKey:@"displayOverlay"];
+    }
+    return displayOverlay;
 }
 
 + (NSInteger)delay {
