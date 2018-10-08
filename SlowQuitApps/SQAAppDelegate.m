@@ -1,18 +1,17 @@
 @import Carbon;
 #import "SQAAppDelegate.h"
 #import "SQAQResolver.h"
-#import "SQACmdQStream.h"
 #import "SQADialogs.h"
 #import "SQAOverlayWindowController.h"
 #import "SQAPreferences.h"
-#import "SQATerminator.h"
+#import "SQAStateMachine.h"
 
 @interface SQAAppDelegate() {
 @private
-    SQACmdQStream *stream;
-    SQATerminator *terminator;
-    SQAQResolver *qResolver;
+    SQAStateMachine *stateMachine;
     id<SQAOverlayViewInterface> overlayView;
+    CFMachPortRef eventTapPort;
+    CFRunLoopSourceRef eventRunLoop;
 }
 @end
 
@@ -21,8 +20,6 @@
 - (id)init {
     self = [super init];
     if (self) {
-        terminator = [[SQATerminator alloc] init];
-        qResolver = [[SQAQResolver alloc] init];
         if ([SQAPreferences displayOverlay]) {
             overlayView = [[SQAOverlayWindowController alloc] init];
         }
@@ -40,7 +37,7 @@
         return;
     }
 
-    if ([self registerGlobalHotkey]) {
+    if ([self registerGlobalHotkeyCG]) {
         [dialogs askAboutAutoStart];
 
         // Hide from dock, command tab, etc.
@@ -52,57 +49,90 @@
     }
 }
 
-- (BOOL)registerGlobalHotkey {
-    EventHotKeyRef hotKeyRef;
-    EventHotKeyID hotKeyID;
-    EventTypeSpec eventType;
-    eventType.eventClass = kEventClassKeyboard;
-    eventType.eventKind = kEventHotKeyPressed;
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    if (eventTapPort) {
+        CFRelease(eventTapPort);
+    }
+    if (eventRunLoop) {
+        CFRelease(eventRunLoop);
+    }
+}
 
-    InstallApplicationEventHandler(&cmdQHandler, 1, &eventType, (__bridge void *)self, NULL);
-    hotKeyID.signature = 'sqad';
-    hotKeyID.id = 1;
+- (BOOL)registerGlobalHotkeyCG {
+    CGEventMask eventMask = (1 << kCGEventFlagsChanged) | (1 << kCGEventKeyDown);
+    CFMachPortRef port = CGEventTapCreate(kCGHIDEventTap,
+                                          kCGHeadInsertEventTap,
+                                          kCGEventTapOptionDefault, eventMask,
+                                          &eventTapHandler, (__bridge void *)self);
+    if (!port) {
+        return false;
+    }
 
-    OSStatus result = RegisterEventHotKey(qResolver.keyCode, cmdKey, hotKeyID, GetApplicationEventTarget(),
-                        kEventHotKeyExclusive, &hotKeyRef);
-    return result != eventHotKeyExistsErr;
+    CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTapPort, 0);
+    CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
+    CGEventTapEnable(port, true);
+    CFRunLoopRun();
+
+    eventTapPort = port;
+    eventRunLoop = runLoopSource;
+
+    return true;
+}
+
+- (void)destroyStateMachine {
+    stateMachine = nil;
 }
 
 - (void)cmdQPressed {
-    __weak typeof(terminator) weakTerminator = terminator;
+    if (stateMachine) {
+        [stateMachine holding];
+        return;
+    }
 
-    void (^hideOverlay)(void) = NULL;
+    __weak typeof(self) weakSelf = self;
+    stateMachine = [[SQAStateMachine alloc] init];
+    __weak typeof(stateMachine) weakSM = stateMachine;
+
+    __weak typeof(overlayView) weakOverlay = overlayView;
+
     if (overlayView) {
-        __weak typeof(overlayView) weakOverlay = overlayView;
-        hideOverlay = ^{
+        stateMachine.onStart = ^{
+            [weakOverlay showOverlay:weakSM.completionDurationInSeconds];
+        };
+        stateMachine.onCompletion = ^{
+            NSRunningApplication *app = findActiveApp();
+            if (app) {
+                [app terminate];
+            }
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
+            [weakSelf destroyStateMachine];
+        };
+        stateMachine.onCancelled = ^{
+            [weakOverlay hideOverlay];
+            [weakOverlay resetOverlay];
+            [weakSelf destroyStateMachine];
         };
     } else {
-        hideOverlay = ^{}; // NOOP
+        stateMachine.onCompletion = ^{
+            NSRunningApplication *app = findActiveApp();
+            if (app) {
+                [app terminate];
+            }
+            [weakSelf destroyStateMachine];
+        };
+        stateMachine.onCancelled = ^{
+            [weakSelf destroyStateMachine];
+        };
     }
 
-    [terminator newMission:hideOverlay];
-    if (overlayView) {
-        [overlayView showOverlay:terminator.missionDurationInSeconds];
-    }
-
-    stream = [[SQACmdQStream alloc] initWithQResolver:qResolver];
-    __weak typeof(stream) weakStream = stream;
-
-    stream.observer = ^(BOOL pressed) {
-        if (pressed) {
-            [weakTerminator updateMission];
-        } else {
-            hideOverlay();
-            [weakStream close];
-        }
-    };
-    [stream open];
+    [stateMachine holding];
 }
 
-- (CGKeyCode)qKeyCode {
-    return [qResolver keyCode];
+- (void)cmdQNotPressed {
+    if (stateMachine) {
+        [stateMachine cancelled];
+    }
 }
 
 NSRunningApplication* findActiveApp() {
@@ -115,8 +145,12 @@ NSRunningApplication* findActiveApp() {
 }
 
 BOOL hasAccessibility() {
+#if defined(DEBUG)
+    return YES;
+#else
     NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
     return AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
+#endif
 }
 
 BOOL shouldHandleCmdQ() {
@@ -137,36 +171,33 @@ BOOL shouldHandleCmdQ() {
     return (invertList ? NO : YES);
 }
 
-OSStatus cmdQHandler(EventHandlerCallRef nextHandler, EventRef anEvent, void *userData) {
-    SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userData;
+CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *userInfo) {
+    if (type != kCGEventFlagsChanged && type != kCGEventKeyDown) {
+        return event;
+    }
+    SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userInfo;
+
+    BOOL command = (CGEventGetFlags(event) & kCGEventFlagMaskCommand) > 0;
+    BOOL q = [@"q" isEqualToString:stringFromCGKeyboardEvent(event)];
+    if (!command || !q) {
+        [delegate cmdQNotPressed];
+        return event;
+    }
 
     if (shouldHandleCmdQ()) {
         [delegate cmdQPressed];
-        return noErr;
-    } else {
-        CGEventRef keyDownCmd, keyDownQ, keyUpQ, keyUpCmd;
-        keyDownCmd = CGEventCreateKeyboardEvent(NULL, kVK_Command, true);
-        keyDownQ = CGEventCreateKeyboardEvent(NULL, [delegate qKeyCode], true);
-        keyUpQ = CGEventCreateKeyboardEvent(NULL, [delegate qKeyCode], false);
-        keyUpCmd = CGEventCreateKeyboardEvent(NULL, kVK_Command, false);
-
-        CGEventPost(kCGAnnotatedSessionEventTap, keyDownCmd);
-        CGEventPost(kCGAnnotatedSessionEventTap, keyDownQ);
-        CGEventPost(kCGAnnotatedSessionEventTap, keyUpQ);
-        CGEventPost(kCGAnnotatedSessionEventTap, keyUpCmd);
-
-        CFRelease(keyDownCmd);
-        CFRelease(keyDownQ);
-        CFRelease(keyUpQ);
-        CFRelease(keyUpCmd);
-
-        // For some reason, this does not work, which is why we generate
-        // the synthetic keyboard events above.
-        // I could not find authoritative reasons why it doesn't work,
-        // but others speculate that shortcuts associated with menu items
-        // are different from hotkey events.
-        return eventNotHandledErr;
+        return NULL;
     }
+
+    [delegate cmdQNotPressed];
+    return event;
+}
+
+NSString * stringFromCGKeyboardEvent(CGEventRef event) {
+    UniCharCount actualStringLength = 0;
+    UniChar unicodeString[4] = {0, 0, 0, 0};
+    CGEventKeyboardGetUnicodeString(event, 1, &actualStringLength, unicodeString);
+    return [NSString stringWithCharacters:unicodeString length:actualStringLength];
 }
 
 @end
