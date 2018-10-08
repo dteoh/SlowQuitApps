@@ -79,17 +79,12 @@
     return true;
 }
 
-- (void)destroyStateMachine {
-    stateMachine = nil;
-}
-
 - (void)cmdQPressed {
     if (stateMachine) {
         [stateMachine holding];
         return;
     }
 
-    __weak typeof(self) weakSelf = self;
     stateMachine = [[SQAStateMachine alloc] init];
     __weak typeof(stateMachine) weakSM = stateMachine;
 
@@ -106,12 +101,10 @@
             }
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
-            [weakSelf destroyStateMachine];
         };
         stateMachine.onCancelled = ^{
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
-            [weakSelf destroyStateMachine];
         };
     } else {
         stateMachine.onCompletion = ^{
@@ -119,10 +112,6 @@
             if (app) {
                 [app terminate];
             }
-            [weakSelf destroyStateMachine];
-        };
-        stateMachine.onCancelled = ^{
-            [weakSelf destroyStateMachine];
         };
     }
 
@@ -133,6 +122,7 @@
     if (stateMachine) {
         [stateMachine cancelled];
     }
+    stateMachine = nil;
 }
 
 NSRunningApplication* findActiveApp() {
