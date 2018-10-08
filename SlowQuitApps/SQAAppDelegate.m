@@ -133,8 +133,12 @@ NSRunningApplication* findActiveApp() {
 }
 
 BOOL hasAccessibility() {
+#if defined(DEBUG)
+    return YES;
+#else
     NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
     return AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
+#endif
 }
 
 BOOL shouldHandleCmdQ() {
