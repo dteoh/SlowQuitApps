@@ -70,14 +70,17 @@
 
 - (void)cmdQPressed {
     __weak typeof(terminator) weakTerminator = terminator;
-    __weak typeof(overlayView) weakOverlay = overlayView;
 
-    void (^hideOverlay)(void) = ^{
-        if (overlayView) {
+    void (^hideOverlay)(void) = NULL;
+    if (overlayView) {
+        __weak typeof(overlayView) weakOverlay = overlayView;
+        hideOverlay = ^{
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
-        }
-    };
+        };
+    } else {
+        hideOverlay = ^{}; // NOOP
+    }
 
     [terminator newMission:hideOverlay];
     if (overlayView) {
