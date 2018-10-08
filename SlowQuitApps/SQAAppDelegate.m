@@ -95,13 +95,16 @@
 - (void)cmdQPressed {
     if (stateMachine) {
         [stateMachine holding];
-    } else {
-        __weak typeof(self) weakSelf = self;
-        stateMachine = [[SQAStateMachine alloc] init];
-        __weak typeof(stateMachine) weakSM = stateMachine;
+        return;
+    }
 
-        __weak typeof(overlayView) weakOverlay = overlayView;
+    __weak typeof(self) weakSelf = self;
+    stateMachine = [[SQAStateMachine alloc] init];
+    __weak typeof(stateMachine) weakSM = stateMachine;
 
+    __weak typeof(overlayView) weakOverlay = overlayView;
+
+    if (overlayView) {
         stateMachine.onStart = ^{
             [weakOverlay showOverlay:weakSM.completionDurationInSeconds];
         };
@@ -118,38 +121,21 @@
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
             [weakSelf destroyStateMachine];
-         };
+        };
+    } else {
+        stateMachine.onCompletion = ^{
+            NSRunningApplication *app = findActiveApp();
+            if (app) {
+                [app terminate];
+            }
+            [weakSelf destroyStateMachine];
+        };
+        stateMachine.onCancelled = ^{
+            [weakSelf destroyStateMachine];
+        };
     }
-//    __weak typeof(terminator) weakTerminator = terminator;
-//
-//    void (^hideOverlay)(void) = NULL;
-//    if (overlayView) {
-//        __weak typeof(overlayView) weakOverlay = overlayView;
-//        hideOverlay = ^{
-//            [weakOverlay hideOverlay];
-//            [weakOverlay resetOverlay];
-//        };
-//    } else {
-//        hideOverlay = ^{}; // NOOP
-//    }
-//
-//    [terminator newMission:hideOverlay];
-//    if (overlayView) {
-//        [overlayView showOverlay:terminator.missionDurationInSeconds];
-//    }
-//
-//    stream = [[SQACmdQStream alloc] initWithQResolver:qResolver];
-//    __weak typeof(stream) weakStream = stream;
-//
-//    stream.observer = ^(BOOL pressed) {
-//        if (pressed) {
-//            [weakTerminator updateMission];
-//        } else {
-//            hideOverlay();
-//            [weakStream close];
-//        }
-//    };
-//    [stream open];
+
+    [stateMachine holding];
 }
 
 - (void)cmdQNotPressed {
