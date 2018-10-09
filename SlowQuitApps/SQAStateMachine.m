@@ -59,6 +59,9 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
 }
 
 - (void)cancelled {
+    if (currentState == SQAStateMachineCancelled) {
+        return;
+    }
     currentState = SQAStateMachineCancelled;
     if (onCancelled) {
         onCancelled();
