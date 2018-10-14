@@ -91,11 +91,9 @@
 
     if (overlayView) {
         stateMachine.onStart = ^{
-            NSLog(@"started");
             [weakOverlay showOverlay:weakSM.completionDurationInSeconds];
         };
         stateMachine.onCompletion = ^{
-            NSLog(@"completed");
             NSRunningApplication *app = findActiveApp();
             if (app) {
                 [app terminate];
@@ -104,7 +102,6 @@
             [weakOverlay resetOverlay];
         };
         stateMachine.onCancelled = ^{
-            NSLog(@"cancelled");
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
             [weakSelf destroyStateMachine];
@@ -181,7 +178,6 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
     BOOL q = [@"q" isEqualToString:stringFromCGKeyboardEvent(event)];
     if (!command || !q) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"not pressed");
             [delegate cmdQNotPressed];
         });
         return event;
@@ -189,7 +185,6 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
 
     if (shouldHandleCmdQ()) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"pressed");
             [delegate cmdQPressed];
         });
         CGEventSetFlags(event, 0);
@@ -198,7 +193,6 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"not pressed");
         [delegate cmdQNotPressed];
     });
     return event;

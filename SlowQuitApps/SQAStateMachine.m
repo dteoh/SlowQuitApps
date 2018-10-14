@@ -85,7 +85,6 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
 
 - (void)checkRemap {
     BOOL isRemapPressed = CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, kVK_RightControl);
-    NSLog(@"isRemapPressed=%hhd", isRemapPressed);
     if (isRemapPressed) {
         return;
     }
