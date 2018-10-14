@@ -1,5 +1,6 @@
 #import "SQAStateMachine.h"
 #import "SQAPreferences.h"
+@import Carbon.HIToolbox;
 
 typedef NS_ENUM(NSInteger, SQAMachineState) {
     SQAStateMachineInitialized,
@@ -13,6 +14,7 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
     SQAMachineState currentState;
     CFTimeInterval start;
     CFTimeInterval lastUpdate;
+    dispatch_source_t timer;
 }
 @end
 
@@ -28,6 +30,16 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
 
     currentState = SQAStateMachineInitialized;
 
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    if (!timer) {
+        return nil;
+    }
+
+    const NSUInteger interval = 15 * NSEC_PER_MSEC;
+    dispatch_source_set_timer(timer, dispatch_time(DISPATCH_TIME_NOW, 0), interval, 0);
+    dispatch_source_set_event_handler(timer, ^{ [self checkRemap]; });
+
     return self;
 }
 
@@ -35,6 +47,7 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
     switch (currentState) {
         case SQAStateMachineInitialized:
             start = lastUpdate = CACurrentMediaTime();
+            dispatch_resume(timer);
             currentState = SQAStateMachineHolding;
             if (onStart) {
                 onStart();
@@ -48,6 +61,7 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
             if (self.progress < 1) {
                 return;
             }
+            dispatch_source_cancel(timer);
             currentState = SQAStateMachineCompleted;
             if (onCompletion) {
                 onCompletion();
@@ -62,10 +76,24 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
     if (currentState == SQAStateMachineCancelled) {
         return;
     }
+    dispatch_source_cancel(timer);
     currentState = SQAStateMachineCancelled;
     if (onCancelled) {
         onCancelled();
     }
+}
+
+- (void)checkRemap {
+    BOOL isRemapPressed = CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, kVK_RightControl);
+    NSLog(@"isRemapPressed=%hhd", isRemapPressed);
+    if (isRemapPressed) {
+        return;
+    }
+
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf cancelled];
+    });
 }
 
 - (CGFloat)completionDurationInMilliseconds {
