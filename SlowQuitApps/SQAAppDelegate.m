@@ -1,6 +1,5 @@
 @import Carbon;
 #import "SQAAppDelegate.h"
-#import "SQAQResolver.h"
 #import "SQADialogs.h"
 #import "SQAOverlayWindowController.h"
 #import "SQAPreferences.h"
@@ -19,11 +18,12 @@
 
 - (id)init {
     self = [super init];
-    if (self) {
-        if ([SQAPreferences displayOverlay]) {
-            overlayView = [[SQAOverlayWindowController alloc] init];
-        }
+    if (!self) { return self; }
+
+    if ([SQAPreferences displayOverlay]) {
+        overlayView = [[SQAOverlayWindowController alloc] init];
     }
+
     return self;
 }
 
@@ -39,7 +39,6 @@
 
     if ([self registerGlobalHotkeyCG]) {
         [dialogs askAboutAutoStart];
-
         // Hide from dock, command tab, etc.
         // Not using LSBackgroundOnly so that we can display NSAlerts beforehand
         [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
@@ -59,7 +58,7 @@
 }
 
 - (BOOL)registerGlobalHotkeyCG {
-    CGEventMask eventMask = (1 << kCGEventFlagsChanged) | (1 << kCGEventKeyDown);
+    CGEventMask eventMask = CGEventMaskBit(kCGEventFlagsChanged) | CGEventMaskBit(kCGEventKeyDown) | CGEventMaskBit(kCGEventKeyUp);
     CFMachPortRef port = CGEventTapCreate(kCGHIDEventTap,
                                           kCGHeadInsertEventTap,
                                           kCGEventTapOptionDefault, eventMask,
@@ -79,21 +78,16 @@
     return true;
 }
 
-- (void)destroyStateMachine {
-    stateMachine = nil;
-}
-
 - (void)cmdQPressed {
     if (stateMachine) {
         [stateMachine holding];
         return;
     }
 
-    __weak typeof(self) weakSelf = self;
     stateMachine = [[SQAStateMachine alloc] init];
     __weak typeof(stateMachine) weakSM = stateMachine;
-
     __weak typeof(overlayView) weakOverlay = overlayView;
+    __weak typeof(self) weakSelf = self;
 
     if (overlayView) {
         stateMachine.onStart = ^{
@@ -106,7 +100,6 @@
             }
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
-            [weakSelf destroyStateMachine];
         };
         stateMachine.onCancelled = ^{
             [weakOverlay hideOverlay];
@@ -119,7 +112,6 @@
             if (app) {
                 [app terminate];
             }
-            [weakSelf destroyStateMachine];
         };
         stateMachine.onCancelled = ^{
             [weakSelf destroyStateMachine];
@@ -133,6 +125,11 @@
     if (stateMachine) {
         [stateMachine cancelled];
     }
+    [self destroyStateMachine];
+}
+
+- (void)destroyStateMachine {
+    stateMachine = nil;
 }
 
 NSRunningApplication* findActiveApp() {
@@ -172,24 +169,32 @@ BOOL shouldHandleCmdQ() {
 }
 
 CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *userInfo) {
-    if (type != kCGEventFlagsChanged && type != kCGEventKeyDown) {
+    if (type != kCGEventFlagsChanged && type != kCGEventKeyDown && type != kCGEventKeyUp) {
         return event;
     }
     SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userInfo;
 
-    BOOL command = (CGEventGetFlags(event) & kCGEventFlagMaskCommand) > 0;
+    BOOL command = (CGEventGetFlags(event) & kCGEventFlagMaskCommand) == kCGEventFlagMaskCommand;
     BOOL q = [@"q" isEqualToString:stringFromCGKeyboardEvent(event)];
     if (!command || !q) {
-        [delegate cmdQNotPressed];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [delegate cmdQNotPressed];
+        });
         return event;
     }
 
     if (shouldHandleCmdQ()) {
-        [delegate cmdQPressed];
-        return NULL;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [delegate cmdQPressed];
+        });
+        CGEventSetFlags(event, 0);
+        CGEventSetIntegerValueField(event, kCGKeyboardEventKeycode, kVK_RightControl);
+        return event;
     }
 
-    [delegate cmdQNotPressed];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [delegate cmdQNotPressed];
+    });
     return event;
 }
 
