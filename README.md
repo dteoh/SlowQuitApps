@@ -120,7 +120,7 @@ To switch off this mode:
 
     $ defaults delete com.dteoh.SlowQuitApps invertList
 
-#### Hide overlay
+### Hide overlay
 
 By default, an overlay with an indicator of the time remaining until the app gets closed appears. To hide this overlay, run the following command:
 
