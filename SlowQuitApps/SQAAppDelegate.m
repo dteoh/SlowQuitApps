@@ -102,7 +102,6 @@
             }
             [weakOverlay hideOverlay];
             [weakOverlay resetOverlay];
-            [weakSelf destroyStateMachine];
         };
         stateMachine.onCancelled = ^{
             NSLog(@"cancelled");
@@ -116,7 +115,6 @@
             if (app) {
                 [app terminate];
             }
-            [weakSelf destroyStateMachine];
         };
         stateMachine.onCancelled = ^{
             [weakSelf destroyStateMachine];
