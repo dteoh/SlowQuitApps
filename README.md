@@ -61,9 +61,11 @@ $ brew cu slowquitapps
 
 ### Compatibility
 
-The app works on Mavericks (10.9) and newer.
+The app is currently developed on Mojave and only support for Mojave can be
+provided.
 
-For Mountain Lion (10.8) support, please download version 0.4.0.
+* Mavericks (10.9) to High Sierra (10.13) support: please download version 0.5.0
+* Mountain Lion (10.8) support: please download version 0.4.0
 
 ## Customization
 
