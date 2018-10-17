@@ -7,12 +7,13 @@
         return;
     }
 
-    NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Automatically launch SlowQuitApps on login?", nil)
-                                     defaultButton:NSLocalizedString(@"Yes", nil)
-                                   alternateButton:NSLocalizedString(@"No", nil)
-                                       otherButton:nil
-                         informativeTextWithFormat:NSLocalizedString(@"Would you like to register SlowQuitApps to automatically launch when you login?", nil)];
-    if ([alert runModal] != NSAlertDefaultReturn) {
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.alertStyle = NSAlertStyleInformational;
+    alert.messageText = NSLocalizedString(@"Automatically launch SlowQuitApps on login?", nil);
+    alert.informativeText = NSLocalizedString(@"Would you like to register SlowQuitApps to automatically launch when you login?", nil);
+    [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"No", nil)];
+    if ([alert runModal] != NSAlertFirstButtonReturn) {
         return;
     }
 
@@ -20,11 +21,10 @@
         return;
     }
 
-    NSAlert *warning = [NSAlert alertWithMessageText:NSLocalizedString(@"Failed to register SlowQuitApps to launch on login", nil)
-                                       defaultButton:NSLocalizedString(@"OK", nil)
-                                     alternateButton:nil
-                                         otherButton:nil
-                           informativeTextWithFormat:@""];
+    NSAlert *warning = [[NSAlert alloc] init];
+    warning.alertStyle = NSAlertStyleWarning;
+    warning.messageText = NSLocalizedString(@"Failed to register SlowQuitApps to launch on login", nil);
+    [warning addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [warning runModal];
 }
 
@@ -71,7 +71,7 @@
 
 appUrlRefCleanup:
     CFRelease(appUrlRef);
-    
+
     return registered;
 }
 
