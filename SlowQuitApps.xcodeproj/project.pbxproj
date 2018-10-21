@@ -16,15 +16,16 @@
 		064F6D7E1B2CD4F100874B26 /* SQAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */; };
 		06789FAF217C52BE001E4CCB /* SQALAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 06789FAE217C52BE001E4CCB /* SQALAppDelegate.m */; };
 		06789FB1217C52BF001E4CCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06789FB0217C52BF001E4CCB /* Assets.xcassets */; };
-		06789FB4217C52BF001E4CCB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06789FB2217C52BF001E4CCB /* MainMenu.xib */; };
+		06789FB4217C52BF001E4CCB /* SQALMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06789FB2217C52BF001E4CCB /* SQALMainMenu.xib */; };
 		06789FB7217C52BF001E4CCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06789FB6217C52BF001E4CCB /* main.m */; };
 		06789FBC217C52DE001E4CCB /* SlowQuitAppsLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 06789FAB217C52BE001E4CCB /* SlowQuitAppsLauncher.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		06789FC1217C7A03001E4CCB /* SQAAutostart.m in Sources */ = {isa = PBXBuildFile; fileRef = 06789FC0217C7A03001E4CCB /* SQAAutostart.m */; };
 		06950469194A81E9007AB2D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950468194A81E9007AB2D5 /* Cocoa.framework */; };
 		06950473194A81E9007AB2D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 06950471194A81E9007AB2D5 /* InfoPlist.strings */; };
 		06950475194A81E9007AB2D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06950474194A81E9007AB2D5 /* main.m */; };
 		06950479194A81E9007AB2D5 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 06950477194A81E9007AB2D5 /* Credits.rtf */; };
 		0695047C194A81E9007AB2D5 /* SQAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0695047B194A81E9007AB2D5 /* SQAAppDelegate.m */; };
-		0695047F194A81E9007AB2D5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0695047D194A81E9007AB2D5 /* MainMenu.xib */; };
+		0695047F194A81E9007AB2D5 /* SQAMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0695047D194A81E9007AB2D5 /* SQAMainMenu.xib */; };
 		06950481194A81E9007AB2D5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06950480194A81E9007AB2D5 /* Images.xcassets */; };
 		06950488194A81E9007AB2D5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950487194A81E9007AB2D5 /* XCTest.framework */; };
 		06950489194A81E9007AB2D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950468194A81E9007AB2D5 /* Cocoa.framework */; };
@@ -80,9 +81,11 @@
 		06789FAD217C52BE001E4CCB /* SQALAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQALAppDelegate.h; sourceTree = "<group>"; };
 		06789FAE217C52BE001E4CCB /* SQALAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQALAppDelegate.m; sourceTree = "<group>"; };
 		06789FB0217C52BF001E4CCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		06789FB3217C52BF001E4CCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		06789FB3217C52BF001E4CCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SQALMainMenu.xib; sourceTree = "<group>"; };
 		06789FB5217C52BF001E4CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06789FB6217C52BF001E4CCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		06789FBF217C7A03001E4CCB /* SQAAutostart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQAAutostart.h; sourceTree = "<group>"; };
+		06789FC0217C7A03001E4CCB /* SQAAutostart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQAAutostart.m; sourceTree = "<group>"; };
 		06950465194A81E9007AB2D5 /* SlowQuitApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06950468194A81E9007AB2D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0695046B194A81E9007AB2D5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -95,7 +98,7 @@
 		06950478194A81E9007AB2D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		0695047A194A81E9007AB2D5 /* SQAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQAAppDelegate.h; sourceTree = "<group>"; };
 		0695047B194A81E9007AB2D5 /* SQAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQAAppDelegate.m; sourceTree = "<group>"; };
-		0695047E194A81E9007AB2D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		0695047E194A81E9007AB2D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SQAMainMenu.xib; sourceTree = "<group>"; };
 		06950480194A81E9007AB2D5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		06950486194A81E9007AB2D5 /* SlowQuitAppsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlowQuitAppsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06950487194A81E9007AB2D5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -138,7 +141,7 @@
 				06789FAD217C52BE001E4CCB /* SQALAppDelegate.h */,
 				06789FAE217C52BE001E4CCB /* SQALAppDelegate.m */,
 				06789FB0217C52BF001E4CCB /* Assets.xcassets */,
-				06789FB2217C52BF001E4CCB /* MainMenu.xib */,
+				06789FB2217C52BF001E4CCB /* SQALMainMenu.xib */,
 				06789FB5217C52BF001E4CCB /* Info.plist */,
 				06789FB6217C52BF001E4CCB /* main.m */,
 			);
@@ -190,9 +193,11 @@
 			isa = PBXGroup;
 			children = (
 				06950480194A81E9007AB2D5 /* Images.xcassets */,
-				0695047D194A81E9007AB2D5 /* MainMenu.xib */,
+				0695047D194A81E9007AB2D5 /* SQAMainMenu.xib */,
 				0695047A194A81E9007AB2D5 /* SQAAppDelegate.h */,
 				0695047B194A81E9007AB2D5 /* SQAAppDelegate.m */,
+				06789FBF217C7A03001E4CCB /* SQAAutostart.h */,
+				06789FC0217C7A03001E4CCB /* SQAAutostart.m */,
 				0601D8D4195D22C400A2CB2E /* SQADialogs.h */,
 				0601D8D5195D22C400A2CB2E /* SQADialogs.m */,
 				060A2EA7194ABD9B00B51D29 /* SQAOverlayView.h */,
@@ -350,7 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06789FB1217C52BF001E4CCB /* Assets.xcassets in Resources */,
-				06789FB4217C52BF001E4CCB /* MainMenu.xib in Resources */,
+				06789FB4217C52BF001E4CCB /* SQALMainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +366,7 @@
 				06950473194A81E9007AB2D5 /* InfoPlist.strings in Resources */,
 				06950481194A81E9007AB2D5 /* Images.xcassets in Resources */,
 				06950479194A81E9007AB2D5 /* Credits.rtf in Resources */,
-				0695047F194A81E9007AB2D5 /* MainMenu.xib in Resources */,
+				0695047F194A81E9007AB2D5 /* SQAMainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +401,7 @@
 				0625BF4020D65E9F0001FF96 /* SQAQResolver.m in Sources */,
 				060A2EA9194ABD9B00B51D29 /* SQAOverlayView.m in Sources */,
 				0601D8D6195D22C400A2CB2E /* SQADialogs.m in Sources */,
+				06789FC1217C7A03001E4CCB /* SQAAutostart.m in Sources */,
 				06950475194A81E9007AB2D5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,12 +431,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		06789FB2217C52BF001E4CCB /* MainMenu.xib */ = {
+		06789FB2217C52BF001E4CCB /* SQALMainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				06789FB3217C52BF001E4CCB /* Base */,
 			);
-			name = MainMenu.xib;
+			name = SQALMainMenu.xib;
 			sourceTree = "<group>";
 		};
 		06950471194A81E9007AB2D5 /* InfoPlist.strings */ = {
@@ -449,12 +455,12 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		0695047D194A81E9007AB2D5 /* MainMenu.xib */ = {
+		0695047D194A81E9007AB2D5 /* SQAMainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0695047E194A81E9007AB2D5 /* Base */,
 			);
-			name = MainMenu.xib;
+			name = SQAMainMenu.xib;
 			sourceTree = "<group>";
 		};
 		0695048F194A81E9007AB2D5 /* InfoPlist.strings */ = {

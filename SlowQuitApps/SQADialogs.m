@@ -1,15 +1,9 @@
 #import "SQADialogs.h"
-@import ServiceManagement;
+#import "SQAAutostart.h"
 
 @implementation SQADialogs
 
-NSString * const LauncherBundleIdentifier = @"com.dteoh.SlowQuitAppsLauncher";
-
 - (void)askAboutAutoStart {
-    if ([self isRegisteredAsLoginItem]) {
-        return;
-    }
-
     NSAlert *alert = [[NSAlert alloc] init];
     alert.alertStyle = NSAlertStyleInformational;
     alert.messageText = NSLocalizedString(@"Automatically launch SlowQuitApps on login?", nil);
@@ -24,6 +18,10 @@ NSString * const LauncherBundleIdentifier = @"com.dteoh.SlowQuitAppsLauncher";
         return;
     }
 
+    [self informLoginItemRegistrationFailure];
+}
+
+- (void)informLoginItemRegistrationFailure {
     NSAlert *warning = [[NSAlert alloc] init];
     warning.alertStyle = NSAlertStyleWarning;
     warning.messageText = NSLocalizedString(@"Failed to register SlowQuitApps to launch on login", nil);
@@ -31,17 +29,8 @@ NSString * const LauncherBundleIdentifier = @"com.dteoh.SlowQuitAppsLauncher";
     [warning runModal];
 }
 
-- (BOOL)isRegisteredAsLoginItem {
-    for (NSRunningApplication *app in [[NSWorkspace sharedWorkspace] runningApplications]) {
-        if ([app.bundleIdentifier isEqualToString:LauncherBundleIdentifier]) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
 - (BOOL)registerLoginItem {
-    return SMLoginItemSetEnabled((__bridge CFStringRef)(LauncherBundleIdentifier), YES);
+    return [SQAAutostart enable];
 }
 
 - (void)informHotkeyRegistrationFailure {

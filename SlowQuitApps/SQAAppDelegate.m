@@ -4,6 +4,7 @@
 #import "SQAOverlayWindowController.h"
 #import "SQAPreferences.h"
 #import "SQAStateMachine.h"
+#import "SQAAutostart.h"
 
 @interface SQAAppDelegate() {
 @private
@@ -29,7 +30,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     SQADialogs *dialogs = [[SQADialogs alloc] init];
-    [dialogs askAboutAutoStart];
 
     if (!hasAccessibility()) {
         [dialogs informAccessibilityRequirement];
@@ -38,8 +38,13 @@
         return;
     }
 
-    if ([self registerGlobalHotkeyCG]) {
+    if ([SQAPreferences disableAutostart]) {
+        [SQAAutostart disable];
+    } else if (![SQAAutostart isEnabled]) {
         [dialogs askAboutAutoStart];
+    }
+
+    if ([self registerGlobalHotkeyCG]) {
         // Hide from dock, command tab, etc.
         // Not using LSBackgroundOnly so that we can display NSAlerts beforehand
         [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];

@@ -20,14 +20,14 @@
 	<string>0.6.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSBackgroundOnly</key>
+	<true/>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2018 Douglas Teoh. All rights reserved.</string>
 	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>LSBackgroundOnly</key>
-	<true/>
+	<string>SQALMainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
