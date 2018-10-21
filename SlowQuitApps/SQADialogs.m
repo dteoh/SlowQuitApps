@@ -1,6 +1,9 @@
 #import "SQADialogs.h"
+@import ServiceManagement;
 
 @implementation SQADialogs
+
+NSString * const LauncherBundleIdentifier = @"com.dteoh.SlowQuitAppsLauncher";
 
 - (void)askAboutAutoStart {
     if ([self isRegisteredAsLoginItem]) {
@@ -29,50 +32,16 @@
 }
 
 - (BOOL)isRegisteredAsLoginItem {
-    NSString *appPath = [[NSBundle mainBundle] bundlePath];
-
-    NSArray *loginItems;
-    {
-        LSSharedFileListRef items = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-        UInt32 seed;
-        loginItems = CFBridgingRelease(LSSharedFileListCopySnapshot(items, &seed));
-        CFRelease(items);
-    }
-
-    for (id item in loginItems) {
-        LSSharedFileListItemRef itemRef = (__bridge LSSharedFileListItemRef)(item);
-        CFURLRef itemUrlRef;
-        if (LSSharedFileListItemResolve(itemRef, 0, &itemUrlRef, NULL) == noErr) {
-            NSURL *itemUrl = CFBridgingRelease(itemUrlRef);
-            if ([[itemUrl path] compare:appPath] == NSOrderedSame) {
-                return YES;
-            }
+    for (NSRunningApplication *app in [[NSWorkspace sharedWorkspace] runningApplications]) {
+        if ([app.bundleIdentifier isEqualToString:LauncherBundleIdentifier]) {
+            return YES;
         }
     }
-
     return NO;
 }
 
 - (BOOL)registerLoginItem {
-    BOOL registered = NO;
-
-    NSString *appPath = [[NSBundle mainBundle] bundlePath];
-    CFURLRef appUrlRef = CFBridgingRetain([NSURL fileURLWithPath:appPath]);
-
-    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    if (!loginItems) goto appUrlRefCleanup;
-
-    LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
-            kLSSharedFileListItemLast, NULL, NULL, appUrlRef, NULL, NULL);
-    CFRelease(item);
-    registered = YES;
-
-    CFRelease(loginItems);
-
-appUrlRefCleanup:
-    CFRelease(appUrlRef);
-
-    return registered;
+    return SMLoginItemSetEnabled((__bridge CFStringRef)(LauncherBundleIdentifier), YES);
 }
 
 - (void)informHotkeyRegistrationFailure {
