@@ -30,7 +30,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     SQADialogs *dialogs = [[SQADialogs alloc] init];
     [dialogs askAboutAutoStart];
-    return;
+
     if (!hasAccessibility()) {
         [dialogs informAccessibilityRequirement];
         // If we terminate now, the special accesibility alert/dialog

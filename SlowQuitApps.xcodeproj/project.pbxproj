@@ -14,9 +14,11 @@
 		0625BF4020D65E9F0001FF96 /* SQAQResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0625BF3F20D65E9F0001FF96 /* SQAQResolver.m */; };
 		064F6D7D1B2CD4F100874B26 /* SQAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */; };
 		064F6D7E1B2CD4F100874B26 /* SQAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */; };
-		066DB14E217C45BD00A36924 /* SQALAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB14D217C45BD00A36924 /* SQALAppDelegate.swift */; };
-		066DB150217C45BF00A36924 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 066DB14F217C45BF00A36924 /* Assets.xcassets */; };
-		066DB153217C45BF00A36924 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 066DB151217C45BF00A36924 /* MainMenu.xib */; };
+		06789FAF217C52BE001E4CCB /* SQALAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 06789FAE217C52BE001E4CCB /* SQALAppDelegate.m */; };
+		06789FB1217C52BF001E4CCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06789FB0217C52BF001E4CCB /* Assets.xcassets */; };
+		06789FB4217C52BF001E4CCB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06789FB2217C52BF001E4CCB /* MainMenu.xib */; };
+		06789FB7217C52BF001E4CCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06789FB6217C52BF001E4CCB /* main.m */; };
+		06789FBC217C52DE001E4CCB /* SlowQuitAppsLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 06789FAB217C52BE001E4CCB /* SlowQuitAppsLauncher.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		06950469194A81E9007AB2D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950468194A81E9007AB2D5 /* Cocoa.framework */; };
 		06950473194A81E9007AB2D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 06950471194A81E9007AB2D5 /* InfoPlist.strings */; };
 		06950475194A81E9007AB2D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06950474194A81E9007AB2D5 /* main.m */; };
@@ -31,6 +33,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		06789FBD217C56A1001E4CCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0695045D194A81E9007AB2D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 06789FAA217C52BE001E4CCB;
+			remoteInfo = SlowQuitAppsLauncher;
+		};
 		0695048A194A81E9007AB2D5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0695045D194A81E9007AB2D5 /* Project object */;
@@ -39,6 +48,19 @@
 			remoteInfo = SlowQuitApps;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		066DB159217C49E800A36924 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				06789FBC217C52DE001E4CCB /* SlowQuitAppsLauncher.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0601D8D4195D22C400A2CB2E /* SQADialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQADialogs.h; sourceTree = "<group>"; };
@@ -54,12 +76,14 @@
 		063486B01953AF6C007E8964 /* SQAOverlayViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAOverlayViewInterface.h; sourceTree = "<group>"; };
 		064F6D7B1B2CD4F100874B26 /* SQAPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAPreferences.h; sourceTree = "<group>"; };
 		064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAPreferences.m; sourceTree = "<group>"; };
-		066DB14B217C45BD00A36924 /* SlowQuitAppsLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitAppsLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		066DB14D217C45BD00A36924 /* SQALAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQALAppDelegate.swift; sourceTree = "<group>"; };
-		066DB14F217C45BF00A36924 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		066DB152217C45BF00A36924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		066DB154217C45BF00A36924 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		066DB155217C45BF00A36924 /* SlowQuitAppsLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SlowQuitAppsLauncher.entitlements; sourceTree = "<group>"; };
+		06789FAB217C52BE001E4CCB /* SlowQuitAppsLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitAppsLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		06789FAD217C52BE001E4CCB /* SQALAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQALAppDelegate.h; sourceTree = "<group>"; };
+		06789FAE217C52BE001E4CCB /* SQALAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQALAppDelegate.m; sourceTree = "<group>"; };
+		06789FB0217C52BF001E4CCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		06789FB3217C52BF001E4CCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		06789FB5217C52BF001E4CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06789FB6217C52BF001E4CCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		06789FB8217C52BF001E4CCB /* SlowQuitAppsLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SlowQuitAppsLauncher.entitlements; sourceTree = "<group>"; };
 		06950465194A81E9007AB2D5 /* SlowQuitApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06950468194A81E9007AB2D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0695046B194A81E9007AB2D5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -82,7 +106,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		066DB148217C45BD00A36924 /* Frameworks */ = {
+		06789FA8217C52BE001E4CCB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -109,14 +133,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		066DB14C217C45BD00A36924 /* SlowQuitAppsLauncher */ = {
+		06789FAC217C52BE001E4CCB /* SlowQuitAppsLauncher */ = {
 			isa = PBXGroup;
 			children = (
-				066DB14D217C45BD00A36924 /* SQALAppDelegate.swift */,
-				066DB14F217C45BF00A36924 /* Assets.xcassets */,
-				066DB151217C45BF00A36924 /* MainMenu.xib */,
-				066DB154217C45BF00A36924 /* Info.plist */,
-				066DB155217C45BF00A36924 /* SlowQuitAppsLauncher.entitlements */,
+				06789FAD217C52BE001E4CCB /* SQALAppDelegate.h */,
+				06789FAE217C52BE001E4CCB /* SQALAppDelegate.m */,
+				06789FB0217C52BF001E4CCB /* Assets.xcassets */,
+				06789FB2217C52BF001E4CCB /* MainMenu.xib */,
+				06789FB5217C52BF001E4CCB /* Info.plist */,
+				06789FB6217C52BF001E4CCB /* main.m */,
+				06789FB8217C52BF001E4CCB /* SlowQuitAppsLauncher.entitlements */,
 			);
 			path = SlowQuitAppsLauncher;
 			sourceTree = "<group>";
@@ -126,7 +152,7 @@
 			children = (
 				0695046E194A81E9007AB2D5 /* SlowQuitApps */,
 				0695048C194A81E9007AB2D5 /* SlowQuitAppsTests */,
-				066DB14C217C45BD00A36924 /* SlowQuitAppsLauncher */,
+				06789FAC217C52BE001E4CCB /* SlowQuitAppsLauncher */,
 				06950467194A81E9007AB2D5 /* Frameworks */,
 				06950466194A81E9007AB2D5 /* Products */,
 			);
@@ -137,7 +163,7 @@
 			children = (
 				06950465194A81E9007AB2D5 /* SlowQuitApps.app */,
 				06950486194A81E9007AB2D5 /* SlowQuitAppsTests.xctest */,
-				066DB14B217C45BD00A36924 /* SlowQuitAppsLauncher.app */,
+				06789FAB217C52BE001E4CCB /* SlowQuitAppsLauncher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,13 +246,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		066DB14A217C45BD00A36924 /* SlowQuitAppsLauncher */ = {
+		06789FAA217C52BE001E4CCB /* SlowQuitAppsLauncher */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 066DB156217C45BF00A36924 /* Build configuration list for PBXNativeTarget "SlowQuitAppsLauncher" */;
+			buildConfigurationList = 06789FB9217C52BF001E4CCB /* Build configuration list for PBXNativeTarget "SlowQuitAppsLauncher" */;
 			buildPhases = (
-				066DB147217C45BD00A36924 /* Sources */,
-				066DB148217C45BD00A36924 /* Frameworks */,
-				066DB149217C45BD00A36924 /* Resources */,
+				06789FA7217C52BE001E4CCB /* Sources */,
+				06789FA8217C52BE001E4CCB /* Frameworks */,
+				06789FA9217C52BE001E4CCB /* Resources */,
 			);
 			buildRules = (
 			);
@@ -234,7 +260,7 @@
 			);
 			name = SlowQuitAppsLauncher;
 			productName = SlowQuitAppsLauncher;
-			productReference = 066DB14B217C45BD00A36924 /* SlowQuitAppsLauncher.app */;
+			productReference = 06789FAB217C52BE001E4CCB /* SlowQuitAppsLauncher.app */;
 			productType = "com.apple.product-type.application";
 		};
 		06950464194A81E9007AB2D5 /* SlowQuitApps */ = {
@@ -244,10 +270,12 @@
 				06950461194A81E9007AB2D5 /* Sources */,
 				06950462194A81E9007AB2D5 /* Frameworks */,
 				06950463194A81E9007AB2D5 /* Resources */,
+				066DB159217C49E800A36924 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				06789FBE217C56A1001E4CCB /* PBXTargetDependency */,
 			);
 			name = SlowQuitApps;
 			productName = SlowQuitApps;
@@ -283,9 +311,9 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Douglas Teoh";
 				TargetAttributes = {
-					066DB14A217C45BD00A36924 = {
+					06789FAA217C52BE001E4CCB = {
 						CreatedOnToolsVersion = 10.0;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					06950464194A81E9007AB2D5 = {
 						ProvisioningStyle = Manual;
@@ -310,18 +338,18 @@
 			targets = (
 				06950464194A81E9007AB2D5 /* SlowQuitApps */,
 				06950485194A81E9007AB2D5 /* SlowQuitAppsTests */,
-				066DB14A217C45BD00A36924 /* SlowQuitAppsLauncher */,
+				06789FAA217C52BE001E4CCB /* SlowQuitAppsLauncher */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		066DB149217C45BD00A36924 /* Resources */ = {
+		06789FA9217C52BE001E4CCB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				066DB150217C45BF00A36924 /* Assets.xcassets in Resources */,
-				066DB153217C45BF00A36924 /* MainMenu.xib in Resources */,
+				06789FB1217C52BF001E4CCB /* Assets.xcassets in Resources */,
+				06789FB4217C52BF001E4CCB /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,11 +375,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		066DB147217C45BD00A36924 /* Sources */ = {
+		06789FA7217C52BE001E4CCB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				066DB14E217C45BD00A36924 /* SQALAppDelegate.swift in Sources */,
+				06789FB7217C52BF001E4CCB /* main.m in Sources */,
+				06789FAF217C52BE001E4CCB /* SQALAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +411,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		06789FBE217C56A1001E4CCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 06789FAA217C52BE001E4CCB /* SlowQuitAppsLauncher */;
+			targetProxy = 06789FBD217C56A1001E4CCB /* PBXContainerItemProxy */;
+		};
 		0695048B194A81E9007AB2D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 06950464194A81E9007AB2D5 /* SlowQuitApps */;
@@ -390,10 +424,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		066DB151217C45BF00A36924 /* MainMenu.xib */ = {
+		06789FB2217C52BF001E4CCB /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				066DB152217C45BF00A36924 /* Base */,
+				06789FB3217C52BF001E4CCB /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -433,7 +467,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		066DB157217C45BF00A36924 /* Debug */ = {
+		06789FBA217C52BF001E4CCB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -445,10 +479,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SlowQuitAppsLauncher/SlowQuitAppsLauncher.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = SlowQuitAppsLauncher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -456,15 +489,11 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dteoh.SlowQuitAppsLauncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
-		066DB158217C45BF00A36924 /* Release */ = {
+		06789FBB217C52BF001E4CCB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -476,10 +505,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SlowQuitAppsLauncher/SlowQuitAppsLauncher.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = SlowQuitAppsLauncher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -487,10 +515,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dteoh.SlowQuitAppsLauncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -599,7 +624,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
@@ -617,7 +642,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
@@ -676,11 +701,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		066DB156217C45BF00A36924 /* Build configuration list for PBXNativeTarget "SlowQuitAppsLauncher" */ = {
+		06789FB9217C52BF001E4CCB /* Build configuration list for PBXNativeTarget "SlowQuitAppsLauncher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				066DB157217C45BF00A36924 /* Debug */,
-				066DB158217C45BF00A36924 /* Release */,
+				06789FBA217C52BF001E4CCB /* Debug */,
+				06789FBB217C52BF001E4CCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
