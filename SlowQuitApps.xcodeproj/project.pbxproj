@@ -14,6 +14,9 @@
 		0625BF4020D65E9F0001FF96 /* SQAQResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0625BF3F20D65E9F0001FF96 /* SQAQResolver.m */; };
 		064F6D7D1B2CD4F100874B26 /* SQAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */; };
 		064F6D7E1B2CD4F100874B26 /* SQAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */; };
+		066DB14E217C45BD00A36924 /* SQALAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB14D217C45BD00A36924 /* SQALAppDelegate.swift */; };
+		066DB150217C45BF00A36924 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 066DB14F217C45BF00A36924 /* Assets.xcassets */; };
+		066DB153217C45BF00A36924 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 066DB151217C45BF00A36924 /* MainMenu.xib */; };
 		06950469194A81E9007AB2D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06950468194A81E9007AB2D5 /* Cocoa.framework */; };
 		06950473194A81E9007AB2D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 06950471194A81E9007AB2D5 /* InfoPlist.strings */; };
 		06950475194A81E9007AB2D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06950474194A81E9007AB2D5 /* main.m */; };
@@ -51,6 +54,12 @@
 		063486B01953AF6C007E8964 /* SQAOverlayViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAOverlayViewInterface.h; sourceTree = "<group>"; };
 		064F6D7B1B2CD4F100874B26 /* SQAPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAPreferences.h; sourceTree = "<group>"; };
 		064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAPreferences.m; sourceTree = "<group>"; };
+		066DB14B217C45BD00A36924 /* SlowQuitAppsLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitAppsLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		066DB14D217C45BD00A36924 /* SQALAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQALAppDelegate.swift; sourceTree = "<group>"; };
+		066DB14F217C45BF00A36924 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		066DB152217C45BF00A36924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		066DB154217C45BF00A36924 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		066DB155217C45BF00A36924 /* SlowQuitAppsLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SlowQuitAppsLauncher.entitlements; sourceTree = "<group>"; };
 		06950465194A81E9007AB2D5 /* SlowQuitApps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlowQuitApps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06950468194A81E9007AB2D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0695046B194A81E9007AB2D5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -73,6 +82,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		066DB148217C45BD00A36924 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		06950462194A81E9007AB2D5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,11 +109,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		066DB14C217C45BD00A36924 /* SlowQuitAppsLauncher */ = {
+			isa = PBXGroup;
+			children = (
+				066DB14D217C45BD00A36924 /* SQALAppDelegate.swift */,
+				066DB14F217C45BF00A36924 /* Assets.xcassets */,
+				066DB151217C45BF00A36924 /* MainMenu.xib */,
+				066DB154217C45BF00A36924 /* Info.plist */,
+				066DB155217C45BF00A36924 /* SlowQuitAppsLauncher.entitlements */,
+			);
+			path = SlowQuitAppsLauncher;
+			sourceTree = "<group>";
+		};
 		0695045C194A81E9007AB2D5 = {
 			isa = PBXGroup;
 			children = (
 				0695046E194A81E9007AB2D5 /* SlowQuitApps */,
 				0695048C194A81E9007AB2D5 /* SlowQuitAppsTests */,
+				066DB14C217C45BD00A36924 /* SlowQuitAppsLauncher */,
 				06950467194A81E9007AB2D5 /* Frameworks */,
 				06950466194A81E9007AB2D5 /* Products */,
 			);
@@ -108,6 +137,7 @@
 			children = (
 				06950465194A81E9007AB2D5 /* SlowQuitApps.app */,
 				06950486194A81E9007AB2D5 /* SlowQuitAppsTests.xctest */,
+				066DB14B217C45BD00A36924 /* SlowQuitAppsLauncher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,6 +220,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		066DB14A217C45BD00A36924 /* SlowQuitAppsLauncher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 066DB156217C45BF00A36924 /* Build configuration list for PBXNativeTarget "SlowQuitAppsLauncher" */;
+			buildPhases = (
+				066DB147217C45BD00A36924 /* Sources */,
+				066DB148217C45BD00A36924 /* Frameworks */,
+				066DB149217C45BD00A36924 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SlowQuitAppsLauncher;
+			productName = SlowQuitAppsLauncher;
+			productReference = 066DB14B217C45BD00A36924 /* SlowQuitAppsLauncher.app */;
+			productType = "com.apple.product-type.application";
+		};
 		06950464194A81E9007AB2D5 /* SlowQuitApps */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 06950496194A81E9007AB2D5 /* Build configuration list for PBXNativeTarget "SlowQuitApps" */;
@@ -232,9 +279,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SQA;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Douglas Teoh";
 				TargetAttributes = {
+					066DB14A217C45BD00A36924 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+					};
 					06950464194A81E9007AB2D5 = {
 						ProvisioningStyle = Manual;
 					};
@@ -258,11 +310,21 @@
 			targets = (
 				06950464194A81E9007AB2D5 /* SlowQuitApps */,
 				06950485194A81E9007AB2D5 /* SlowQuitAppsTests */,
+				066DB14A217C45BD00A36924 /* SlowQuitAppsLauncher */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		066DB149217C45BD00A36924 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				066DB150217C45BF00A36924 /* Assets.xcassets in Resources */,
+				066DB153217C45BF00A36924 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		06950463194A81E9007AB2D5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -285,6 +347,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		066DB147217C45BD00A36924 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				066DB14E217C45BD00A36924 /* SQALAppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		06950461194A81E9007AB2D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +390,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		066DB151217C45BF00A36924 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				066DB152217C45BF00A36924 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		06950471194A81E9007AB2D5 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -355,6 +433,63 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		066DB157217C45BF00A36924 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SlowQuitAppsLauncher/SlowQuitAppsLauncher.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = SlowQuitAppsLauncher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dteoh.SlowQuitAppsLauncher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		066DB158217C45BF00A36924 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SlowQuitAppsLauncher/SlowQuitAppsLauncher.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = SlowQuitAppsLauncher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dteoh.SlowQuitAppsLauncher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 		06950494194A81E9007AB2D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -533,6 +668,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		066DB156217C45BF00A36924 /* Build configuration list for PBXNativeTarget "SlowQuitAppsLauncher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				066DB157217C45BF00A36924 /* Debug */,
+				066DB158217C45BF00A36924 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		06950460194A81E9007AB2D5 /* Build configuration list for PBXProject "SlowQuitApps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
