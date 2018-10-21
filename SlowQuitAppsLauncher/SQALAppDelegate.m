@@ -19,8 +19,6 @@
         path = [path stringByDeletingLastPathComponent];
         [NSWorkspace.sharedWorkspace launchApplication:path];
     }
-
-    [NSApp terminate:self];
 }
 
 @end
