@@ -11,6 +11,7 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
 
 @interface SQAStateMachine() {
 @private
+    CGEventSourceRef eventSource;
     SQAMachineState currentState;
     CFTimeInterval start;
     CFTimeInterval lastUpdate;
@@ -24,7 +25,7 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
 @synthesize onCancelled;
 @synthesize onCompletion;
 
-- (id)init {
+- (instancetype)initWithEventSource:(CGEventSourceRef)eventSource {
     self = [super init];
     if (!self) return self;
 
@@ -84,7 +85,7 @@ typedef NS_ENUM(NSInteger, SQAMachineState) {
 }
 
 - (void)checkRemap {
-    BOOL isRemapPressed = CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, kVK_RightControl);
+    BOOL isRemapPressed = CGEventSourceKeyState(CGEventSourceGetSourceStateID(eventSource), kVK_Command);
     if (isRemapPressed) {
         return;
     }
