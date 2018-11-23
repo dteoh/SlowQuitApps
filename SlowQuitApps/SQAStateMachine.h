@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) state_callback_t onCancelled;
 @property (strong) state_callback_t onCompletion;
 
+- (instancetype)initWithEventSource:(CGEventSourceRef)eventSource;
+
 - (CGFloat)completionDurationInSeconds;
 
 - (void)holding;

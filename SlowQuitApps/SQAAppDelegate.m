@@ -12,6 +12,7 @@
     id<SQAOverlayViewInterface> overlayView;
     CFMachPortRef eventTapPort;
     CFRunLoopSourceRef eventRunLoop;
+    CGEventSourceRef appEventSource;
 }
 @end
 
@@ -61,6 +62,9 @@
     if (eventRunLoop) {
         CFRelease(eventRunLoop);
     }
+    if (appEventSource) {
+        CFRelease(appEventSource);
+    }
 }
 
 - (BOOL)registerGlobalHotkeyCG {
@@ -80,6 +84,7 @@
 
     eventTapPort = port;
     eventRunLoop = runLoopSource;
+    appEventSource = CGEventSourceCreate(kCGEventSourceStatePrivate);
 
     return true;
 }
@@ -90,7 +95,7 @@
         return;
     }
 
-    stateMachine = [[SQAStateMachine alloc] init];
+    stateMachine = [[SQAStateMachine alloc] initWithEventSource:appEventSource];
     __weak typeof(stateMachine) weakSM = stateMachine;
     __weak typeof(overlayView) weakOverlay = overlayView;
     __weak typeof(self) weakSelf = self;
@@ -138,13 +143,12 @@
     stateMachine = nil;
 }
 
+- (CGEventSourceRef)appEventSource {
+    return appEventSource;
+}
+
 NSRunningApplication* findActiveApp() {
-    for (NSRunningApplication *app in [[NSWorkspace sharedWorkspace] runningApplications]) {
-        if ([app isActive]) {
-            return app;
-        }
-    }
-    return NULL;
+    return [[NSWorkspace sharedWorkspace] menuBarOwningApplication];
 }
 
 BOOL hasAccessibility() {
@@ -193,8 +197,10 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
         dispatch_async(dispatch_get_main_queue(), ^{
             [delegate cmdQPressed];
         });
+
         CGEventSetFlags(event, 0);
-        CGEventSetIntegerValueField(event, kCGKeyboardEventKeycode, kVK_RightControl);
+        CGEventSetIntegerValueField(event, kCGKeyboardEventKeycode, kVK_Command);
+        CGEventSetIntegerValueField(event, kCGEventSourceStateID, CGEventSourceGetSourceStateID([delegate appEventSource]));
         return event;
     }
 
