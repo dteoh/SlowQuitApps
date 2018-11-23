@@ -15,7 +15,7 @@
     if (self) {
         NSRect contentRect = NSMakeRect(0, 0, 300, 300);
         NSPanel *panel = [[NSPanel alloc] initWithContentRect:contentRect
-                                                    styleMask:NSBorderlessWindowMask|NSNonactivatingPanelMask
+                                                    styleMask:NSWindowStyleMaskBorderless|NSWindowStyleMaskNonactivatingPanel
                                                       backing:NSBackingStoreBuffered
                                                         defer:YES];
         [panel setOpaque:NO];
