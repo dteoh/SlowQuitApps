@@ -148,12 +148,7 @@
 }
 
 NSRunningApplication* findActiveApp() {
-    for (NSRunningApplication *app in [[NSWorkspace sharedWorkspace] runningApplications]) {
-        if ([app isActive]) {
-            return app;
-        }
-    }
-    return NULL;
+    return [[NSWorkspace sharedWorkspace] menuBarOwningApplication];
 }
 
 BOOL hasAccessibility() {
