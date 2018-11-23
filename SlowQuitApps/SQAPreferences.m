@@ -6,7 +6,13 @@
 + (NSUserDefaults *)defaults {
     static BOOL defaultsRegistered;
     if (!defaultsRegistered) {
-      NSDictionary *defaults = @{@"delay": @1000, @"whitelist": @[], @"invertList": @NO, @"displayOverlay": @YES};
+      NSDictionary *defaults = @{
+                                 @"delay": @1000,
+                                 @"whitelist": @[],
+                                 @"invertList": @NO,
+                                 @"displayOverlay": @YES,
+                                 @"disableAutostart": @NO
+                                 };
       [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
         defaultsRegistered = YES;
     }
@@ -46,6 +52,14 @@
         invertList = [[self defaults] boolForKey:@"invertList"];
     }
     return invertList;
+}
+
++ (BOOL)disableAutostart {
+    static BOOL disableAutostart;
+    if (!disableAutostart) {
+        disableAutostart = [[self defaults] boolForKey:@"disableAutostart"];
+    }
+    return disableAutostart;
 }
 
 @end
