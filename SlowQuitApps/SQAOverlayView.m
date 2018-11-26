@@ -4,6 +4,7 @@
 @interface SQAOverlayView() {
 @private
     CAShapeLayer *bar;
+    CAShapeLayer *outline;
     CAShapeLayer *track;
 }
 @end
@@ -25,10 +26,18 @@
         track.lineWidth = 30;
         [layer addSublayer:track];
 
+        outline = makeTemplate(chartRect);
+        outline.fillColor = NSColor.clearColor.CGColor;
+        outline.strokeColor = NSColor.controlAccentColor.CGColor;
+        outline.lineWidth = 30;
+        outline.lineCap = @"round";
+        outline.strokeEnd = 0;
+        [layer addSublayer:outline];
+
         bar = makeTemplate(chartRect);
         bar.fillColor = NSColor.clearColor.CGColor;
         bar.strokeColor = [[NSColor colorWithRed:0.04 green:0.04 blue:0.04 alpha:1] CGColor];
-        bar.lineWidth = 30;
+        bar.lineWidth = 29;
         bar.lineCap = @"round";
         bar.strokeEnd = 0;
         [layer addSublayer:bar];
@@ -41,6 +50,7 @@
 }
 
 - (void)updateLayer {
+    [outline removeAllAnimations];
     [bar removeAllAnimations];
 
     CABasicAnimation *strokeAnim = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
@@ -51,6 +61,7 @@
     strokeAnim.fillMode = kCAFillModeForwards;
     strokeAnim.removedOnCompletion = NO;
 
+    [outline addAnimation:strokeAnim forKey:@"strokeAnim"];
     [bar addAnimation:strokeAnim forKey:@"strokeAnim"];
 }
 
