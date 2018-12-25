@@ -131,6 +131,8 @@ By default, an overlay with an indicator of the time remaining until the app get
 ## License
 
 ```
+SlowQuitApps
+
 Copyright (C) 2018 Douglas Teoh
 
 This program is free software; you can redistribute it and/or modify
