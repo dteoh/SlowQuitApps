@@ -37,7 +37,7 @@
         bar = makeTemplate(chartRect);
         bar.fillColor = NSColor.clearColor.CGColor;
         bar.strokeColor = [[NSColor colorWithRed:0.04 green:0.04 blue:0.04 alpha:1] CGColor];
-        bar.lineWidth = 29;
+        bar.lineWidth = 27;
         bar.lineCap = @"round";
         bar.strokeEnd = 0;
         [layer addSublayer:bar];
