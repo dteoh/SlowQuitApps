@@ -155,4 +155,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 ### App Icon
 
-The app icon is a contribution courtesy of @fancyme (#35).
+The app icon is a contribution courtesy of [@fancyme][1] ([#35][2]).
+
+[1]: https://github.com/fancyme
+[2]: https://github.com/dteoh/SlowQuitApps/issues/35
