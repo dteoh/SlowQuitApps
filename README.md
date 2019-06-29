@@ -133,7 +133,7 @@ By default, an overlay with an indicator of the time remaining until the app get
 ```
 SlowQuitApps
 
-Copyright (C) 2018 Douglas Teoh
+Copyright (C) 2019 Douglas Teoh
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -149,3 +149,7 @@ You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ```
+
+### App Icon
+
+The app icon is a contribution courtesy of @fancyme (#35).
