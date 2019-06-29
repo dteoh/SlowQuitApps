@@ -133,7 +133,7 @@ By default, an overlay with an indicator of the time remaining until the app get
 ```
 SlowQuitApps
 
-Copyright (C) 2018 Douglas Teoh
+Copyright (C) 2019 Douglas Teoh
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
