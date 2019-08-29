@@ -1,9 +1,9 @@
 # Slow Quit Apps
 
-![Preview](./img/preview.gif?raw=true "Slow Quit Apps preview")
-
 [![Release](https://img.shields.io/github/release/dteoh/SlowQuitApps.svg)](https://github.com/dteoh/SlowQuitApps/releases)
 ![Release Date](https://img.shields.io/github/release-date/dteoh/SlowQuitApps.svg)
+
+![Preview](./img/preview.gif?raw=true "Slow Quit Apps preview")
 
 A macOS app that adds a global delay of 1 second to the Cmd-Q shortcut. In
 other words, you have to hold down Cmd-Q for 1 second before an application
