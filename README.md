@@ -1,6 +1,6 @@
 # Slow Quit Apps
 
-![Example](https://im4.ezgif.com/tmp/ezgif-4-7099fc8ae7af.gif)
+![Preview](./img/preview.gif?raw=true "Slow Quit Apps preview")
 
 [![Release](https://img.shields.io/github/release/dteoh/SlowQuitApps.svg)](https://github.com/dteoh/SlowQuitApps/releases)
 ![Release Date](https://img.shields.io/github/release-date/dteoh/SlowQuitApps.svg)
