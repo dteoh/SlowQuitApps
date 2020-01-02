@@ -148,10 +148,6 @@
     appSwitcherActive = NO;
 }
 
-- (BOOL)appSwitcherIsActive {
-    return appSwitcherActive;
-}
-
 - (void)destroyStateMachine {
     stateMachine = nil;
 }
