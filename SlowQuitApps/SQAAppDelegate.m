@@ -13,6 +13,7 @@
     CFMachPortRef eventTapPort;
     CFRunLoopSourceRef eventRunLoop;
     CGEventSourceRef appEventSource;
+    BOOL appSwitcherActive;
 }
 @end
 
@@ -139,6 +140,14 @@
     [self destroyStateMachine];
 }
 
+- (void)appSwitcherOpened {
+    appSwitcherActive = YES;
+}
+
+- (void)appSwitcherClosed {
+    appSwitcherActive = NO;
+}
+
 - (void)destroyStateMachine {
     stateMachine = nil;
 }
@@ -147,20 +156,11 @@
     return appEventSource;
 }
 
-NSRunningApplication* findActiveApp() {
-    return [[NSWorkspace sharedWorkspace] menuBarOwningApplication];
-}
+- (BOOL)shouldHandleCmdQ {
+    if (appSwitcherActive) {
+        return NO;
+    }
 
-BOOL hasAccessibility() {
-#if defined(DEBUG)
-    return YES;
-#else
-    NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
-    return AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
-#endif
-}
-
-BOOL shouldHandleCmdQ() {
     NSRunningApplication *activeApp = findActiveApp();
     if (activeApp == NULL) {
         return NO;
@@ -178,14 +178,40 @@ BOOL shouldHandleCmdQ() {
     return (invertList ? NO : YES);
 }
 
+NSRunningApplication* findActiveApp() {
+    return [[NSWorkspace sharedWorkspace] menuBarOwningApplication];
+}
+
+BOOL hasAccessibility() {
+#if defined(DEBUG)
+    return YES;
+#else
+    NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+    return AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)options);
+#endif
+}
+
 CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *userInfo) {
     if (type != kCGEventFlagsChanged && type != kCGEventKeyDown && type != kCGEventKeyUp) {
         return event;
     }
     SQAAppDelegate *delegate = (__bridge SQAAppDelegate *)userInfo;
 
+    NSString *stringedKey = stringFromCGKeyboardEvent(event);
+
     BOOL command = (CGEventGetFlags(event) & kCGEventFlagMaskCommand) == kCGEventFlagMaskCommand;
-    BOOL q = [@"q" isEqualToString:stringFromCGKeyboardEvent(event)];
+    BOOL q = [@"q" isEqualToString:stringedKey];
+    BOOL tab = [@"\t" isEqualToString:stringedKey];
+
+    // Cannot override App Switcher functionality, so try to detect when it
+    // is activated. Ideally the framework would give us a cleaner way to query
+    // for this, but alas...
+    if (command && tab) {
+        [delegate appSwitcherOpened];
+    } else if (!command && !tab) {
+        [delegate appSwitcherClosed];
+    }
+
     if (!command || !q) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [delegate cmdQNotPressed];
@@ -193,7 +219,7 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
         return event;
     }
 
-    if (shouldHandleCmdQ()) {
+    if ([delegate shouldHandleCmdQ]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [delegate cmdQPressed];
         });
