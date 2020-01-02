@@ -311,7 +311,7 @@
 			attributes = {
 				CLASSPREFIX = SQA;
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Douglas Teoh";
 				TargetAttributes = {
 					06789FAA217C52BE001E4CCB = {
