@@ -63,6 +63,12 @@ Or using [brew-cask-upgrade](https://github.com/buo/homebrew-cask-upgrade):
 ```
 $ brew cu slowquitapps
 ```
+### Post-update Maintenance
+
+Unfortunately, after upgrading SQA, you will have to reset accessibility
+permissions for the app. Go to System Preferences -> Security & Privacy ->
+Privacy -> Accessibility. Remove SlowQuitApps from the list, then add it back
+to the list again.
 
 ### Compatibility
 
