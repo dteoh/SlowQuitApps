@@ -106,7 +106,7 @@
             NSString *appTitle = @"";
             NSRunningApplication *app = findActiveApp();
             if (app) {
-                appTitle = [app localizedName];
+                appTitle = [app localizedName] ?: @"";
             }
             [weakOverlay showOverlay:weakSM.completionDurationInSeconds
                            withTitle:appTitle];
