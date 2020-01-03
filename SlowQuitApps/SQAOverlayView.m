@@ -18,7 +18,8 @@
         self.wantsLayer = YES;
         self.layer = layer;
 
-        CGRect chartRect = smallerCenteredRect(frameRect, 50);
+        // TODO this magic 20 should ideally be calculated from line widths, etc.
+        CGRect chartRect = smallerCenteredRect(frameRect, 20);
 
         track = makeTemplate(chartRect);
         track.fillColor = NSColor.clearColor.CGColor;

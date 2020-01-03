@@ -103,7 +103,13 @@
 
     if (overlayView) {
         stateMachine.onStart = ^{
-            [weakOverlay showOverlay:weakSM.completionDurationInSeconds];
+            NSString *appTitle = @"";
+            NSRunningApplication *app = findActiveApp();
+            if (app) {
+                appTitle = [app localizedName] ?: @"";
+            }
+            [weakOverlay showOverlay:weakSM.completionDurationInSeconds
+                           withTitle:appTitle];
         };
         stateMachine.onCompletion = ^{
             NSRunningApplication *app = findActiveApp();
