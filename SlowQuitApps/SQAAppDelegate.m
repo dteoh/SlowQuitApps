@@ -206,6 +206,7 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
     NSString *stringedKey = stringFromCGKeyboardEvent(event);
 
     BOOL command = (CGEventGetFlags(event) & kCGEventFlagMaskCommand) == kCGEventFlagMaskCommand;
+    BOOL ctrl = (CGEventGetFlags(event) & kCGEventFlagMaskControl) == kCGEventFlagMaskControl;
     BOOL q = [@"q" isEqualToString:stringedKey];
     BOOL tab = [@"\t" isEqualToString:stringedKey];
 
@@ -218,7 +219,10 @@ CGEventRef eventTapHandler(CGEventTapProxy proxy, CGEventType type, CGEventRef e
         [delegate appSwitcherClosed];
     }
 
-    if (!command || !q) {
+    // Ignore:
+    // * something that wont start Cmd + Q
+    // * key sequence for starting screen lock activation (Cmd + ^ + Q)
+    if (!command || !q || (command && ctrl)) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [delegate cmdQNotPressed];
         });
