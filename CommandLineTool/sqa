@@ -34,7 +34,7 @@ elif [ "$1" = 'stop' ]; then
 elif [ "$1" = 'doc' ]; then
     [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|doc)' && exit 1
     echo 'online doc: https://github.com/dteoh/SlowQuitApps'
-    open -a 'Safari' 'https://github.com/dteoh/SlowQuitApps'
+    osascript -e  'open location "https://github.com/dteoh/SlowQuitApps"'
 elif [ "$1" = 'install' ]; then
     [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit { install )' && exit 1
     brew tap dteoh/sqa
