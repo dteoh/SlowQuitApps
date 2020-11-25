@@ -24,10 +24,10 @@ EOF
 elif [ "$1" = 'restart' ]; then
     [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|restart)' && exit 1
     killall SlowQuitApps
-    open -a SlowQuitApps
+    open -a '/Applications/SlowQuitApps.app'
 elif [ "$1" = 'start' ]; then
     [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|start)' && exit 1
-    open -a SlowQuitApps
+    open -a '/Applications/SlowQuitApps.app'
 elif [ "$1" = 'stop' ]; then
     [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|stop)' && exit 1
     killall SlowQuitApps
@@ -58,7 +58,7 @@ elif [ "$1" = 'uninstall' ]; then
     ${this_file} stop
     brew uninstall --cask slowquitapps
     brew untap dteoh/sqa
-    rm ${this_file}
+    # rm ${this_file}
 elif [ "$1" = 'config' ]; then
     [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit config)' && exit 1
     defaults read com.dteoh.SlowQuitApps
