@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# get absoltae path to the dir this is in, work in bash, zsh
+# get absolute path to the dir this is in, work in bash, zsh
 # if you want transfer symbolic link to true path, just change `pwd` to `pwd -P`
 this_file="${BASH_SOURCE[0]-$0}"
 
@@ -11,15 +11,15 @@ is a command line tool to manage https://github.com/dteoh/SlowQuitApps,
 which can delay to quit when pressing the cmd+Q.
 
 Usage:
-slowquit { restart | start | stop }       : retart|start|stop SlowQuitApps
+slowquit { restart | start | stop }       : restart|start|stop SlowQuitApps
 slowquit { install | update | uninstall } : install|update|uninstall SlowQuitApp
 slowquit config                           : show config
-slowquit delay <number>                   : how many ms to wait before quit an app
-slowquit overlay { on|1 | off|0 }         : whether to display the circle with resting wating time
+slowquit delay <number>                   : how many ms to wait before quitting an app
+slowquit overlay { on|1 | off|0 }         : show or hide the progress overlay
 slowquit whitelist { {ls|clear} | {add|delete} '<app-name>' ['<app-name>' ...] }
-                                          : whiltelist apps will be quited without waiting
-                                            see /Applications/<app-name>.app for <app-name>
-slowquit doc                              : jump to the online doc
+                                          : whitelisted apps will exit without waiting
+                                            use <app-name> for /Applications/<app-name>.app
+slowquit doc                              : open online documentation
 EOF
 elif [ "$1" = 'restart' ]; then
     [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|restart)' && exit 1
@@ -112,13 +112,28 @@ elif [ "$1" = 'whitelist' ]; then
         shift
         [ $# -eq 0 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit whitelist)' && exit 1
 
+        get_list_id_od_app() {
+            local __list_id_od_app=()
+            local __line=
+            while IFS=$'\n' read -r __line; do
+                __list_id_od_app+=("${__line}")
+            done < <( \
+                defaults read com.dteoh.SlowQuitApps whitelist | grep -E '".+"' | \
+                perl -pe 's/^.*?"//' |  perl -pe 's/".*?$//'
+            )
+            eval "$1"'=("${__list_id_od_app[@]}")'
+        }
+
+        list_id_od_app_origin=()
+        get_list_id_od_app list_id_od_app_origin
+
         while [ $# -gt 0 ]; do
             app_name="$1"
             shift
             id_of_app=$(osascript -e "id of app \"${app_name}\"" 2>/dev/null)
 
             [ "${id_of_app}" = '' ] && echo "'${app_name}': app id not found," \
-                ' see `/Applications/<app-name>.app` for <app-name>' && continue
+                ' use <app-name> for /Applications/<app-name>.app' && continue
 
             exist_in_list=$(defaults read com.dteoh.SlowQuitApps whitelist 2>&1 | grep "${id_of_app}")
 
@@ -130,20 +145,26 @@ elif [ "$1" = 'whitelist' ]; then
                 [ "$exist_in_list" = '' ] && echo "'${app_name}' : not in whitelist." && continue
 
                 list_id_od_app=()
-                line=
-                while IFS=$'\n' read -r line; do
-                    list_id_od_app+=("${line}")
-                done < <( \
-                    defaults read com.dteoh.SlowQuitApps whitelist | grep -E '".+"' | \
-                    perl -pe 's/^.*?"//' |  perl -pe 's/".*?$//' | \
-                    grep -v "${id_of_app}"
-                )
+                get_list_id_od_app list_id_od_app
 
-                defaults write com.dteoh.SlowQuitApps whitelist -array "${list_id_od_app[@]}"
+                list_id_od_app_new=()
+                for i in "${list_id_od_app[@]}"; do
+                    [ "$i" != "$id_of_app" ] && list_id_od_app_new+=($i)
+                done
+
+                defaults write com.dteoh.SlowQuitApps whitelist -array "${list_id_od_app_new[@]}"
                 echo "'${app_name}' : deleted successfully"
             fi
         done
-        ${this_file} restart
+
+        list_id_od_app_final=()
+        get_list_id_od_app list_id_od_app_final
+
+        if [ ${#list_id_od_app_origin[@]} -ne ${#list_id_od_app_final[@]} ]; then
+            ${this_file} restart
+        else
+            echo "whitelist didn't change"
+        fi
     else
         ${this_file} help | grep --color=never -E '(Usage|whitelist)'
     fi
