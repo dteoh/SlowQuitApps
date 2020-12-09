@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+
+# get absolute path to the dir this is in, work in bash, zsh
+# if you want transfer symbolic link to true path, just change `pwd` to `pwd -P`
+this_file="${BASH_SOURCE[0]-$0}"
+
+if [ "$1" = 'help' ]; then
+    cat <<EOF
+slowquit
+is a command line tool to manage https://github.com/dteoh/SlowQuitApps,
+which can delay to quit when pressing the cmd+Q.
+
+Usage:
+slowquit { restart | start | stop }       : restart|start|stop SlowQuitApps
+slowquit { install | update | uninstall } : install|update|uninstall SlowQuitApp
+slowquit config                           : show config
+slowquit delay <number>                   : how many ms to wait before quitting an app
+slowquit overlay { on|1 | off|0 }         : show or hide the progress overlay
+slowquit whitelist { {ls|clear} | {add|delete} '<app-name>' ['<app-name>' ...] }
+                                          : whitelisted apps will exit without waiting
+                                            use <app-name> for /Applications/<app-name>.app
+slowquit doc                              : open online documentation
+EOF
+elif [ "$1" = 'restart' ]; then
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|restart)' && exit 1
+    killall SlowQuitApps
+    open -a '/Applications/SlowQuitApps.app'
+elif [ "$1" = 'start' ]; then
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|start)' && exit 1
+    open -a '/Applications/SlowQuitApps.app'
+elif [ "$1" = 'stop' ]; then
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|stop)' && exit 1
+    killall SlowQuitApps
+elif [ "$1" = 'doc' ]; then
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|doc)' && exit 1
+    echo 'online doc: https://github.com/dteoh/SlowQuitApps'
+    osascript -e  'open location "https://github.com/dteoh/SlowQuitApps"'
+elif [ "$1" = 'install' ]; then
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit { install )' && exit 1
+    brew tap dteoh/sqa
+    brew install --cask slowquitapps
+    ${this_file} start
+elif [ "$1" = 'update' ] || [ "$1" = 'install' ]; then
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit { install )' && exit 1
+    # method1
+    brew tap dteoh/sqa
+    brew update
+    brew reinstall --cask slowquitapps
+    # method2
+    # brew tap dteoh/sqa
+    # brew tap buo/cask-upgrade
+    # brew cu slowquitapps
+
+    # take effect
+    ${this_file} restart
+elif [ "$1" = 'uninstall' ]; then
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit { install )' && exit 1
+    ${this_file} stop
+    brew uninstall --cask slowquitapps
+    brew untap dteoh/sqa
+    # rm ${this_file}
+elif [ "$1" = 'config' ]; then
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit config)' && exit 1
+    defaults read com.dteoh.SlowQuitApps
+elif [ "$1" = 'delay' ]; then
+    shift
+    if [ $# -ne 1 ] || ! [[ "$1" =~ ^[0-9]+$ ]]; then
+        ${this_file} help | grep --color=never -E '(Usage|slowquit delay)'
+    else
+        defaults write com.dteoh.SlowQuitApps delay -int "$1"
+        ${this_file} restart
+    fi
+elif [ "$1" = 'overlay' ]; then
+    shift
+    if [ $# -ne 1 ] || ! [[ "$1" =~ ^(on|1|off|0)$ ]]; then
+        ${this_file} help | grep --color=never -E '(Usage|slowquit overlay)' && exit 1
+    elif [ "$1" = 'on' ] || [ "$1" = '1' ]; then
+        defaults write com.dteoh.SlowQuitApps displayOverlay -bool YES
+        ${this_file} restart
+    elif [ "$1" = 'off' ] || [ "$1" = '0' ]; then
+        defaults write com.dteoh.SlowQuitApps displayOverlay -bool NO
+        ${this_file} restart
+    fi
+elif [ "$1" = 'whitelist' ]; then
+    shift
+    if [ "$1" = 'ls' ] || [ "$1" = 'clear' ]; then
+        action="$1"
+        shift
+        [ $# -ne 0 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit whitelist)' && exit 1
+        whitelist_not_exist="$( \
+        (defaults read com.dteoh.SlowQuitApps whitelist 1>/dev/null) 2>&1 | \
+            grep 'The domain/default pair of (com.dteoh.SlowQuitApps, whitelist) does not exist')"
+
+        if [ "${whitelist_not_exist}" != '' ]; then
+            if [ "$action" = 'ls' ]; then
+                echo "("$'\n'")"
+            elif [ "$action" = 'clear' ]; then
+                :
+            fi
+        else
+            if [ "$action" = 'ls' ]; then
+                defaults read com.dteoh.SlowQuitApps whitelist
+            elif [ "$action" = 'clear' ]; then
+                defaults delete com.dteoh.SlowQuitApps whitelist
+                # set an empty whitelist
+                defaults write com.dteoh.SlowQuitApps whitelist -array
+                ${this_file} restart
+            fi
+        fi
+    elif [ "$1" = 'add' ] || [ "$1" = 'delete' ] ; then
+        action="$1"
+        shift
+        [ $# -eq 0 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit whitelist)' && exit 1
+
+        get_list_id_od_app() {
+            local __list_id_od_app=()
+            local __line=
+            while IFS=$'\n' read -r __line; do
+                __list_id_od_app+=("${__line}")
+            done < <( \
+                defaults read com.dteoh.SlowQuitApps whitelist | grep -E '".+"' | \
+                perl -pe 's/^.*?"//' |  perl -pe 's/".*?$//'
+            )
+            eval "$1"'=("${__list_id_od_app[@]}")'
+        }
+
+        list_id_od_app_origin=()
+        get_list_id_od_app list_id_od_app_origin
+
+        while [ $# -gt 0 ]; do
+            app_name="$1"
+            shift
+            id_of_app=$(osascript -e "id of app \"${app_name}\"" 2>/dev/null)
+
+            [ "${id_of_app}" = '' ] && echo "'${app_name}': app id not found," \
+                ' use <app-name> for /Applications/<app-name>.app' && continue
+
+            exist_in_list=$(defaults read com.dteoh.SlowQuitApps whitelist 2>&1 | grep "${id_of_app}")
+
+            if [ "$action" = 'add' ]; then
+                [ "$exist_in_list" != '' ] && echo "'${app_name}' : already in the whitelist." && continue
+                defaults write com.dteoh.SlowQuitApps whitelist -array-add ${id_of_app}
+                echo "'${app_name}' : added successfully"
+            elif [ "$action" = 'delete' ]; then
+                [ "$exist_in_list" = '' ] && echo "'${app_name}' : not in whitelist." && continue
+
+                list_id_od_app=()
+                get_list_id_od_app list_id_od_app
+
+                list_id_od_app_new=()
+                for i in "${list_id_od_app[@]}"; do
+                    [ "$i" != "$id_of_app" ] && list_id_od_app_new+=($i)
+                done
+
+                defaults write com.dteoh.SlowQuitApps whitelist -array "${list_id_od_app_new[@]}"
+                echo "'${app_name}' : deleted successfully"
+            fi
+        done
+
+        list_id_od_app_final=()
+        get_list_id_od_app list_id_od_app_final
+
+        if [ ${#list_id_od_app_origin[@]} -ne ${#list_id_od_app_final[@]} ]; then
+            ${this_file} restart
+        else
+            echo "whitelist didn't change"
+        fi
+    else
+        ${this_file} help | grep --color=never -E '(Usage|whitelist)'
+    fi
+else
+    ${this_file} help
+fi
+
+
+# release this variable in the end of file
+# unset -v this_file
