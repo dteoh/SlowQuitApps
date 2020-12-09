@@ -6,20 +6,20 @@ this_file="${BASH_SOURCE[0]-$0}"
 
 if [ "$1" = 'help' ]; then
     cat <<EOF
-slowquit
-is a command line tool to manage https://github.com/dteoh/SlowQuitApps,
-which can delay to quit when pressing the cmd+Q.
+sqa
+    is a command line tool to manage https://github.com/dteoh/SlowQuitApps,
+    which can delay to quit when pressing the cmd+Q.
 
 Usage:
-slowquit { restart | start | stop }       : restart|start|stop SlowQuitApps
-slowquit { install | update | uninstall } : install|update|uninstall SlowQuitApp
-slowquit config                           : show config
-slowquit delay <number>                   : how many ms to wait before quitting an app
-slowquit overlay { on|1 | off|0 }         : show or hide the progress overlay
-slowquit whitelist { {ls|clear} | {add|delete} '<app-name>' ['<app-name>' ...] }
-                                          : whitelisted apps will exit without waiting
-                                            use <app-name> for /Applications/<app-name>.app
-slowquit doc                              : open online documentation
+    sqa { restart | start | stop }       : restart|start|stop SlowQuitApps
+    sqa { install | update | uninstall } : install|update|uninstall SlowQuitApp
+    sqa config                           : show config
+    sqa delay <number>                   : how many ms to wait before quitting an app
+    sqa overlay { on|1 | off|0 }         : show or hide the progress overlay
+    sqa whitelist { {ls|clear} | {add|delete} '<app-name>' ['<app-name>' ...] }
+                                            : whitelisted apps will exit without waiting
+                                                use <app-name> for /Applications/<app-name>.app
+    sqa doc                              : open online documentation
 EOF
 elif [ "$1" = 'restart' ]; then
     [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|restart)' && exit 1
@@ -36,12 +36,12 @@ elif [ "$1" = 'doc' ]; then
     echo 'online doc: https://github.com/dteoh/SlowQuitApps'
     osascript -e  'open location "https://github.com/dteoh/SlowQuitApps"'
 elif [ "$1" = 'install' ]; then
-    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit { install )' && exit 1
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|sqa { install )' && exit 1
     brew tap dteoh/sqa
     brew install --cask slowquitapps
     ${this_file} start
 elif [ "$1" = 'update' ] || [ "$1" = 'install' ]; then
-    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit { install )' && exit 1
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|sqa { install )' && exit 1
     # method1
     brew tap dteoh/sqa
     brew update
@@ -54,18 +54,18 @@ elif [ "$1" = 'update' ] || [ "$1" = 'install' ]; then
     # take effect
     ${this_file} restart
 elif [ "$1" = 'uninstall' ]; then
-    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit { install )' && exit 1
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|sqa { install )' && exit 1
     ${this_file} stop
     brew uninstall --cask slowquitapps
     brew untap dteoh/sqa
     # rm ${this_file}
 elif [ "$1" = 'config' ]; then
-    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit config)' && exit 1
+    [ $# -ne 1 ] && ${this_file} help | grep --color=never -E '(Usage|sqa config)' && exit 1
     defaults read com.dteoh.SlowQuitApps
 elif [ "$1" = 'delay' ]; then
     shift
     if [ $# -ne 1 ] || ! [[ "$1" =~ ^[0-9]+$ ]]; then
-        ${this_file} help | grep --color=never -E '(Usage|slowquit delay)'
+        ${this_file} help | grep --color=never -E '(Usage|sqa delay)'
     else
         defaults write com.dteoh.SlowQuitApps delay -int "$1"
         ${this_file} restart
@@ -73,7 +73,7 @@ elif [ "$1" = 'delay' ]; then
 elif [ "$1" = 'overlay' ]; then
     shift
     if [ $# -ne 1 ] || ! [[ "$1" =~ ^(on|1|off|0)$ ]]; then
-        ${this_file} help | grep --color=never -E '(Usage|slowquit overlay)' && exit 1
+        ${this_file} help | grep --color=never -E '(Usage|sqa overlay)' && exit 1
     elif [ "$1" = 'on' ] || [ "$1" = '1' ]; then
         defaults write com.dteoh.SlowQuitApps displayOverlay -bool YES
         ${this_file} restart
@@ -86,7 +86,7 @@ elif [ "$1" = 'whitelist' ]; then
     if [ "$1" = 'ls' ] || [ "$1" = 'clear' ]; then
         action="$1"
         shift
-        [ $# -ne 0 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit whitelist)' && exit 1
+        [ $# -ne 0 ] && ${this_file} help | grep --color=never -E '(Usage|sqa whitelist)' && exit 1
         whitelist_not_exist="$( \
         (defaults read com.dteoh.SlowQuitApps whitelist 1>/dev/null) 2>&1 | \
             grep 'The domain/default pair of (com.dteoh.SlowQuitApps, whitelist) does not exist')"
@@ -110,7 +110,7 @@ elif [ "$1" = 'whitelist' ]; then
     elif [ "$1" = 'add' ] || [ "$1" = 'delete' ] ; then
         action="$1"
         shift
-        [ $# -eq 0 ] && ${this_file} help | grep --color=never -E '(Usage|slowquit whitelist)' && exit 1
+        [ $# -eq 0 ] && ${this_file} help | grep --color=never -E '(Usage|sqa whitelist)' && exit 1
 
         get_list_id_od_app() {
             local __list_id_od_app=()
