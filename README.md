@@ -43,7 +43,7 @@ If you wish to install the application from Homebrew:
 
 ```
 $ brew tap dteoh/sqa
-$ brew cask install slowquitapps
+$ brew install --cask slowquitapps
 ```
 
 The application will live at `/Applications/SlowQuitApps.app`.
@@ -52,7 +52,7 @@ Updating the app:
 
 ```
 $ brew update
-$ brew cask reinstall slowquitapps
+$ brew reinstall --cask slowquitapps
 $ killall SlowQuitApps
 ```
 
@@ -63,6 +63,12 @@ Or using [brew-cask-upgrade](https://github.com/buo/homebrew-cask-upgrade):
 ```
 $ brew cu slowquitapps
 ```
+
+Installing the app through Homebrew will add a script called `sqa` accessible
+from the command line. To use this tool, the main app must first be given
+permissions to run.
+
+
 ### Post-update Maintenance
 
 Unfortunately, after upgrading SQA, you will have to reset accessibility
@@ -87,6 +93,10 @@ To exit the app:
 ```
 $ killall SlowQuitApps
 ```
+
+All of the following tasks can be done more conveniently using the `sqa`
+script. This script is automatically available from the command line when the
+app is installed through Homebrew.
 
 ### Changing default delay
 
