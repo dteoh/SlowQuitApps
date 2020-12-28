@@ -10,6 +10,7 @@
 		0601D8D6195D22C400A2CB2E /* SQADialogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 0601D8D5195D22C400A2CB2E /* SQADialogs.m */; };
 		060A2EA6194ABB5200B51D29 /* SQAOverlayWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 060A2EA5194ABB5200B51D29 /* SQAOverlayWindowController.m */; };
 		060A2EA9194ABD9B00B51D29 /* SQAOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 060A2EA8194ABD9B00B51D29 /* SQAOverlayView.m */; };
+		060D55EC2599B4910005AFCE /* sqa in CopyFiles */ = {isa = PBXBuildFile; fileRef = 060D55E32599B47D0005AFCE /* sqa */; };
 		061E9087216B374D001364B8 /* SQAStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 061E9086216B374D001364B8 /* SQAStateMachine.m */; };
 		0625BF4020D65E9F0001FF96 /* SQAQResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0625BF3F20D65E9F0001FF96 /* SQAQResolver.m */; };
 		064F6D7D1B2CD4F100874B26 /* SQAPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 064F6D7C1B2CD4F100874B26 /* SQAPreferences.m */; };
@@ -51,6 +52,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		060D55EB2599B48D0005AFCE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				060D55EC2599B4910005AFCE /* sqa in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		066DB159217C49E800A36924 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -70,6 +81,7 @@
 		060A2EA5194ABB5200B51D29 /* SQAOverlayWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAOverlayWindowController.m; sourceTree = "<group>"; };
 		060A2EA7194ABD9B00B51D29 /* SQAOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQAOverlayView.h; sourceTree = "<group>"; };
 		060A2EA8194ABD9B00B51D29 /* SQAOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQAOverlayView.m; sourceTree = "<group>"; };
+		060D55E32599B47D0005AFCE /* sqa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sqa; sourceTree = "<group>"; };
 		061E9085216B374D001364B8 /* SQAStateMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQAStateMachine.h; sourceTree = "<group>"; };
 		061E9086216B374D001364B8 /* SQAStateMachine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQAStateMachine.m; sourceTree = "<group>"; };
 		0625BF3E20D65E9F0001FF96 /* SQAQResolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQAQResolver.h; sourceTree = "<group>"; };
@@ -135,6 +147,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		060D55E22599B42B0005AFCE /* Executables */ = {
+			isa = PBXGroup;
+			children = (
+				060D55E32599B47D0005AFCE /* sqa */,
+			);
+			path = Executables;
+			sourceTree = "<group>";
+		};
 		06789FAC217C52BE001E4CCB /* SlowQuitAppsLauncher */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +171,7 @@
 		0695045C194A81E9007AB2D5 = {
 			isa = PBXGroup;
 			children = (
+				060D55E22599B42B0005AFCE /* Executables */,
 				0695046E194A81E9007AB2D5 /* SlowQuitApps */,
 				0695048C194A81E9007AB2D5 /* SlowQuitAppsTests */,
 				06789FAC217C52BE001E4CCB /* SlowQuitAppsLauncher */,
@@ -274,6 +295,7 @@
 				06950462194A81E9007AB2D5 /* Frameworks */,
 				06950463194A81E9007AB2D5 /* Resources */,
 				066DB159217C49E800A36924 /* CopyFiles */,
+				060D55EB2599B48D0005AFCE /* CopyFiles */,
 			);
 			buildRules = (
 			);
