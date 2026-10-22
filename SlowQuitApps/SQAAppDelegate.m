@@ -33,10 +33,12 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     SQADialogs *dialogs = [[SQADialogs alloc] init];
 
-    if (!hasAccessibility()) {
+    if (![self registerGlobalHotkeyCG]) {
+        // Trigger the OS prompt so the app is listed in System Settings,
+        // then tell the user what to enable.
+        hasAccessibility();
         [dialogs informAccessibilityRequirement];
-        // If we terminate now, the special accesibility alert/dialog
-        // from the framework/OS will dissappear immediately.
+        [NSApp terminate:self];
         return;
     }
 
@@ -46,14 +48,9 @@
         [dialogs askAboutAutoStart];
     }
 
-    if ([self registerGlobalHotkeyCG]) {
-        // Hide from dock, command tab, etc.
-        // Not using LSBackgroundOnly so that we can display NSAlerts beforehand
-        [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
-    } else {
-        [dialogs informHotkeyRegistrationFailure];
-        [NSApp terminate:self];
-    }
+    // Hide from dock, command tab, etc.
+    // Not using LSBackgroundOnly so that we can display NSAlerts beforehand
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
@@ -81,7 +78,6 @@
     CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, port, 0);
     CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
     CGEventTapEnable(port, true);
-    CFRunLoopRun();
 
     eventTapPort = port;
     eventRunLoop = runLoopSource;
