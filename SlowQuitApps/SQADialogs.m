@@ -45,10 +45,14 @@
 - (void)informAccessibilityRequirement {
     NSAlert *alert = [[NSAlert alloc] init];
     alert.alertStyle = NSAlertStyleInformational;
-    alert.messageText = NSLocalizedString(@"SlowQuitApps requires permissions to control your computer", nil);
-    alert.informativeText = NSLocalizedString(@"SlowQuitApps needs accessibility permissions to handle ⌘Q.\r\rAfter adding SlowQuitApps to System Preferences -> Security & Privacy -> Privacy -> Accessibility, please restart the app.", nil);
-    [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [alert runModal];
+    alert.messageText = NSLocalizedString(@"SlowQuitApps requires permission to control your computer", nil);
+    alert.informativeText = NSLocalizedString(@"To handle ⌘Q, enable SlowQuitApps in System Settings -> Privacy & Security -> Device Control and Data Access (called Accessibility on older macOS versions), then relaunch the app.", nil);
+    [alert addButtonWithTitle:NSLocalizedString(@"Open Settings", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+    if ([alert runModal] == NSAlertFirstButtonReturn) {
+        NSURL *settingsURL = [NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"];
+        [[NSWorkspace sharedWorkspace] openURL:settingsURL];
+    }
 }
 
 @end
